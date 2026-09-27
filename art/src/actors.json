@@ -68,6 +68,56 @@
     "kckkmmmmmmmmkkck",
     ".k.kmmk..kmmk.k."
    ]
+  },
+  {
+   "name": "snake_idle_0",
+   "atlas": [
+    0,
+    1
+   ],
+   "rows": [
+    "................",
+    "................",
+    "........kkkk....",
+    ".......kGGGGk...",
+    "......kGGyGGGk..",
+    "......kGGGGGGkr.",
+    ".......kgggggkr.",
+    "........kgGgk...",
+    "....kkkkkgGgk...",
+    "...kGGGGGgGgk...",
+    "..kGggggggGGGk..",
+    "..kGgkkkkkkgGk..",
+    "..kGgGGGGGGgGk..",
+    "...kgggggggggk..",
+    "....kkkkkkkkk...",
+    "................"
+   ]
+  },
+  {
+   "name": "snake_idle_1",
+   "atlas": [
+    1,
+    1
+   ],
+   "rows": [
+    "................",
+    "................",
+    "........kkkk....",
+    ".......kGGGGk...",
+    "......kGGyGGGk..",
+    "......kGGGGGGkr.",
+    ".......kgggggkr.",
+    "........kgGgk...",
+    "....kkkkkgGgk...",
+    "...kGGGGGgGgk...",
+    "..kGggggggGGGk..",
+    "..kGgkkkkkkgGk..",
+    "..kGgGGGGGGgGk..",
+    "...kgggggggggk..",
+    "....kkkkkkkkk...",
+    "................"
+   ]
   }
  ]
 }

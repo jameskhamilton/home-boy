@@ -17,3 +17,8 @@ extends Resource
 @export_range(3, 30) var room_size_max: int = 13
 ## Chance (0-1) of an extra corridor between neighbouring rooms, creating loops.
 @export_range(0.0, 1.0) var extra_loop_chance: float = 0.15
+
+@export_group("Enemies")
+## Fewest / most enemies placed on a floor.
+@export_range(0, 50) var enemy_count_min: int = 4
+@export_range(0, 50) var enemy_count_max: int = 6

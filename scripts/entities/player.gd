@@ -1,72 +1,50 @@
 class_name Player
-extends Node2D
-## The player: lives on a grid cell; the sprite is just drawn there.
+extends Actor
+## The sloth. Turns input into Actions for the TurnManager, and tracks stillness:
+## waiting `turns_to_camouflage` turns in a row makes the sloth camouflaged.
 
-## Emitted whenever the player arrives on a cell (moved or placed).
-signal moved(cell: Vector2i)
+## Emitted after each turn with the current stillness state (for the HUD).
+signal stillness_changed(still_turns: int, camouflaged: bool)
 
-## How far the player can see, in tiles.
-@export_range(1, 30) var sight_radius: int = 8
+## Waits in a row needed to become camouflaged.
+@export_range(1, 10) var turns_to_camouflage: int = 3
 
-## Logical position in tiles (the source of truth). Pixel position is derived from it.
-@export var grid_pos: Vector2i = Vector2i(2, 2)
+const CAMO_TINT: Color = Color(0.55, 0.85, 0.5, 0.75)
 
-## The floor the player is on. Set by Main. Used to stop walking into walls.
-var map: MapData
+## Consecutive turns spent waiting.
+var still_turns: int = 0
 
 @onready var _camera: Camera2D = $Camera2D
 @onready var _input: DirectionInput = $DirectionInput
+@onready var _sprite: Sprite2D = $Sprite2D
 
 
 func _ready() -> void:
-	_sync_position()
+	super()
 	_input.step_requested.connect(_on_step_requested)
+	_input.wait_requested.connect(_on_wait_requested)
 
 
-## Handle a step from input. If a diagonal is blocked, slide along the wall by
-## taking whichever single direction is open (if exactly one is).
-func _on_step_requested(dir: Vector2i) -> void:
-	if move(dir):
-		return
-	if dir.x == 0 or dir.y == 0:
-		return
-	var horizontal := Vector2i(dir.x, 0)
-	var vertical := Vector2i(0, dir.y)
-	var can_h: bool = _can_enter(grid_pos + horizontal)
-	var can_v: bool = _can_enter(grid_pos + vertical)
-	if can_h and not can_v:
-		move(horizontal)
-	elif can_v and not can_h:
-		move(vertical)
+## True once the sloth has been still long enough to blend in.
+func is_camouflaged() -> bool:
+	return still_turns >= turns_to_camouflage
 
 
-## Try to move one tile (including diagonally). Returns false and stays put if
-## the target isn't walkable, or if a diagonal would cut past a wall corner.
-func move(dir: Vector2i) -> bool:
-	var target: Vector2i = grid_pos + dir
-	if not _can_enter(target):
-		return false
-	# Diagonals need both side cells open, so you never clip a wall corner.
-	if dir.x != 0 and dir.y != 0 \
-			and (not _can_enter(grid_pos + Vector2i(dir.x, 0)) \
-			or not _can_enter(grid_pos + Vector2i(0, dir.y))):
-		return false
-	grid_pos = target
-	_sync_position()
-	moved.emit(grid_pos)
-	return true
+## Called by TurnManager after the player's action has been performed.
+func after_action(action: Action) -> void:
+	if action is WaitAction:
+		still_turns += 1
+	else:
+		still_turns = 0
+	_sprite.modulate = CAMO_TINT if is_camouflaged() else Color.WHITE
+	stillness_changed.emit(still_turns, is_camouflaged())
 
 
-## True if the player could stand on this cell (always true with no map).
-func _can_enter(cell: Vector2i) -> bool:
-	return map == null or map.is_walkable(cell)
-
-
-## Jump straight to a cell (e.g. the floor's start position).
-func place_at(cell: Vector2i) -> void:
-	grid_pos = cell
-	_sync_position()
-	moved.emit(grid_pos)
+## Reset stillness (e.g. on a new floor).
+func reset_stillness() -> void:
+	still_turns = 0
+	_sprite.modulate = Color.WHITE
+	stillness_changed.emit(0, false)
 
 
 ## Stop the camera scrolling past the map's edges (size in pixels).
@@ -77,6 +55,36 @@ func set_camera_limits(map_size_px: Vector2i) -> void:
 	_camera.limit_bottom = map_size_px.y
 
 
-## Grid cell -> pixels. Vector2i * int stays Vector2i, so convert for `position`.
-func _sync_position() -> void:
-	position = Vector2(grid_pos * GameMap.TILE_SIZE)
+## A step from input. If a diagonal is blocked, slide along the wall by taking
+## whichever single direction is open (if exactly one is).
+func _on_step_requested(dir: Vector2i) -> void:
+	var chosen: Vector2i = _resolve_step(dir)
+	if chosen != Vector2i.ZERO:
+		_submit(MoveAction.new(self, chosen))
+
+
+func _on_wait_requested() -> void:
+	_submit(WaitAction.new(self))
+
+
+func _resolve_step(dir: Vector2i) -> Vector2i:
+	if can_step(dir):
+		return dir
+	if dir.x == 0 or dir.y == 0:
+		return Vector2i.ZERO
+	var horizontal := Vector2i(dir.x, 0)
+	var vertical := Vector2i(0, dir.y)
+	var can_h: bool = can_step(horizontal)
+	var can_v: bool = can_step(vertical)
+	if can_h and not can_v:
+		return horizontal
+	if can_v and not can_h:
+		return vertical
+	return Vector2i.ZERO
+
+
+func _submit(action: Action) -> void:
+	if world != null:
+		world.play_turn(action)
+	else:
+		action.perform()

@@ -4,12 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://dw0efha26nlul" path="res://scenes/game_map.tscn" id="2_map"]
 [ext_resource type="PackedScene" uid="uid://cupdyd2fp12n7" path="res://scenes/player.tscn" id="3_player"]
 [ext_resource type="Resource" path="res://data/dungeon/default_dungeon.tres" id="4_cfg"]
+[ext_resource type="Resource" path="res://data/monsters/cave_snake.tres" id="5_snake"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="6_enemy"]
+[ext_resource type="Script" path="res://scripts/core/turn_manager.gd" id="7_turns"]
+[ext_resource type="Script" path="res://scripts/entities/monster_def.gd" id="8_def"]
 
 [node name="Main" type="Node2D" unique_id=1433055254]
 script = ExtResource("1_main")
 dungeon_config = ExtResource("4_cfg")
+monster_types = Array[ExtResource("8_def")]([ExtResource("5_snake")])
+enemy_scene = ExtResource("6_enemy")
 
 [node name="GameMap" parent="." instance=ExtResource("2_map")]
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="Player" parent="." unique_id=1378968751 instance=ExtResource("3_player")]
 
@@ -23,3 +31,14 @@ offset_bottom = 14.0
 modulate = Color(1, 1, 1, 0.6)
 theme_override_font_sizes/font_size = 8
 text = "Seed"
+
+[node name="StatusLabel" type="Label" parent="HUD"]
+offset_left = 4.0
+offset_top = 12.0
+offset_right = 160.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.498039, 0.698039, 0.290196, 1)
+theme_override_font_sizes/font_size = 8
+
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource("7_turns")

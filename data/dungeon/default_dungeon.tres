@@ -11,3 +11,5 @@ room_chance = 0.8
 room_size_min = 5
 room_size_max = 13
 extra_loop_chance = 0.15
+enemy_count_min = 4
+enemy_count_max = 6

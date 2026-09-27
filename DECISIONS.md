@@ -31,3 +31,15 @@ One line each: what was decided and why. Newest at the bottom.
 - 2026-09-27 — Background clear colour = palette 'k', also set at runtime (MCP stores colour settings as strings).
 - 2026-09-27 — (James) 8-way movement by pressing two keys together. `DirectionInput` component: 60 ms chord window, own hold-repeat (0.125 s delay (James: halved), 0.11 s interval) instead of OS key-repeat; emits `step_requested(dir)`.
 - 2026-09-27 — (James) Diagonal rule: blocked if EITHER side cell is a wall (no corner-cutting, no clipping at corridor entrances). Blocked diagonals slide along the one open direction (if exactly one is open).
+- 2026-09-27 — (James) First enemy: cave snake. Lost sight → search last-seen spot, then wander. Camouflage after 3 waits. Camouflage only shakes enemies that can't currently see you (break line of sight first).
+- 2026-09-27 — Turn model: Action objects (MoveAction, WaitAction); TurnManager performs the player's action then each enemy's. Failed actions (walking into walls/actors) cost no turn. Space = wait (holdable).
+- 2026-09-27 — `Actor` base class (grid pos, blocking, no-corner-cut rule) shared by Player and Enemy. Enemies block movement.
+- 2026-09-27 — EnemyAI states WANDER/HUNT/SEARCH; A* via AStarGrid2D (DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES matches player rule). Enemy "sees" player via the player's FOV (symmetric) + its own radius (snake 6). Bumping into a camouflaged player reveals them.
+- 2026-09-27 — Monsters are `MonsterDef` Resources in data/monsters/; 4–6 per floor (DungeonConfig), spawned out of sight, not in the start room. Enemies only drawn when their cell is visible; "!"/"?" markers show HUNT/SEARCH.
+- 2026-09-27 — (James) Escape from snakes: they tire. After `chase_stamina` 8 turns hunting, a snake stands still for `rest_turns` 3 ("z" marker). It keeps watching while resting: still in sight on waking = chase resumes; out of sight = it searches.
+- 2026-09-27 — Searching snakes move at half pace (`search_pace` 2) so an escape round corners can actually stick (tested: two corners + 3 waits = lost it). Dead ends it can see into still trap you.
+- 2026-09-27 — Enemy state markers drawn above everything (z_index 10) with a dark outline; previously hidden under the tile above.
+- 2026-09-27 — Godot log folder (AppData/Roaming/Godot/app_userdata/Home Boy/logs) connected: Claude reads errors/prints from there.
+- 2026-09-27 — (James) One snake per room (seeded shuffle of non-start rooms; count capped by rooms available).
+- 2026-09-27 — (James) Snakes start DORMANT, lurking in their home room, until the player first sees them; then normal WANDER/HUNT/SEARCH/REST.
+- 2026-09-27 — Connectivity re-verified after James saw an apparently sealed room: 934 random floors, 0 disconnected, 0 rooms without an exit. Awaiting a seed if it recurs.

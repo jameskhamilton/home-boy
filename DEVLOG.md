@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M6: enemies, turns, stealth
+- Done: Action pattern + TurnManager, Actor base, A* pathfinding, cave snakes (MonsterDef data), WANDER/HUNT/SEARCH/REST/DORMANT AI, stillness camouflage (Space = wait), state markers, one snake per room. Play-tested OK.
+- Decided (James): cave snake; search then wander; camo after 3 waits, only out of sight; snakes tire (8 chase / 3 rest), dormant until first spotted.
+- Learned: equal-speed chasers make escape impossible without a rule (tiring + slow search); Godot log folder now readable for debugging.
+- Next: M7 — combat, HP, death, message log, XP, nap.
+
 ## 2026-09-27 — M5: field of view + 8-way movement
 - Done: shadowcasting FOV (radius 8), explored memory, fog overlay; DirectionInput component with two-key diagonals, own hold-repeat, no corner-cutting, wall sliding. Play-tested OK.
 - Decided (James): game design (fetch & return, XP → gear at floor end, nap mechanic, stillness = stealth); diagonals via chords; halved repeat delay; no clipping at corridor entrances.
