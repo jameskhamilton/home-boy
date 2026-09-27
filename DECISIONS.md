@@ -62,3 +62,4 @@ One line each: what was decided and why. Newest at the bottom.
 - 2026-09-27 — (James) Furniture gives small lasting bonuses: hammock (nap +1), reading lamp (+2 sight), cosy rug (+2 HP), bookshelf (+1 XP per fight won), armchair (camo 1 turn faster). One crate per floor, deeper floors unlock better pieces; +1 snake per depth.
 - 2026-09-27 — `GameState` autoload holds lasting progress + current trip (in memory until Save/Load in M10). `Catalog` preloads all UpgradeDef/FurnitureDef .tres. Player stats are derived from GameState in `Player.apply_loadout()`.
 - 2026-09-27 — Home scene (scenes/home.tscn) is now the main scene; E = interact (computer, ladder, stairs). Tree-house art is Claude-drawn via tools/art_home/*.py (palette-limited).
+- 2026-09-27 — Bug fix (James): after dying, Space did nothing because the sloth's 'wait' input swallowed it. The death screen now listens in _input (before everything else); Space/Enter/E carries you home.

@@ -51,12 +51,20 @@ func _ready() -> void:
 	_turns.post_message("Find furniture, then climb the ladder home (E).", MessageColours.MISS)
 
 
+## Dead: catch Space/Enter before anything else can (Space is also the "wait" key,
+## which the sloth's input would otherwise swallow).
+func _input(event: InputEvent) -> void:
+	if not _awaiting_home:
+		return
+	get_viewport().set_input_as_handled()
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("interact"):
+		_awaiting_home = false
+		GameState.lose_trip()
+		get_tree().change_scene_to_file(HOME_SCENE)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if _awaiting_home:
-		if event.is_action_pressed("ui_accept"):
-			get_viewport().set_input_as_handled()
-			GameState.lose_trip()
-			get_tree().change_scene_to_file(HOME_SCENE)
 		return
 	if event.is_action_pressed("debug_new_floor"):
 		new_floor(GameState.rng.randi()) # debug: reroll this floor
@@ -255,4 +263,4 @@ func _on_player_died() -> void:
 	var lost: String = "%d XP" % GameState.carried_xp
 	if not GameState.carried_furniture.is_empty():
 		lost += " and your furniture"
-	_hud.show_game_over(true, "You collapse...\nA macaw carries you home. You lose %s.\nPress Space." % lost)
+	_hud.show_game_over(true, "You collapse...\nA macaw carries you home.\nYou lose %s.\n\nPress Space" % lost)
