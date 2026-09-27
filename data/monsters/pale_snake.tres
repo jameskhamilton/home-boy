@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_def")
-display_name = "green snake"
-atlas_coords = Vector2i(0, 1)
+display_name = "pale snake"
+atlas_coords = Vector2i(0, 2)
 sight_radius = 6
 search_turns = 6
 chase_stamina = 8

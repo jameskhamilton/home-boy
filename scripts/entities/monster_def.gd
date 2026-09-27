@@ -15,3 +15,13 @@ extends Resource
 @export_range(0, 20) var rest_turns: int = 3
 ## While searching it only moves every Nth turn (2 = half pace). Gives you time to slip away.
 @export_range(1, 5) var search_pace: int = 2
+
+@export_group("Combat")
+@export_range(1, 999) var max_hp: int = 6
+## Chance (0-1) that its bite lands.
+@export_range(0.0, 1.0) var accuracy: float = 0.7
+@export_range(0, 99) var damage_min: int = 1
+@export_range(0, 99) var damage_max: int = 3
+@export_range(0, 99) var defence: int = 0
+## XP the sloth gains for defeating it.
+@export_range(0, 999) var xp_value: int = 5

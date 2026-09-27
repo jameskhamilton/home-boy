@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M7: combat
+- Done: Fighter component, dice combat (to-hit + damage range), bump-to-attack, snake bites, death + permadeath (R = new run), nap (N) healing with sleeping double-bite, XP, HUD (HP bar, XP, status, message log, seed), three snake variants.
+- Decided (James): dice rolls; nap to heal; permadeath; all three snake designs mixed at random.
+- Learned: Godot's global `log()` clashes with a method name — renamed to post_message.
+- Next: M8 — spend XP on gear at the end of each floor.
+
 ## 2026-09-27 — M6: enemies, turns, stealth
 - Done: Action pattern + TurnManager, Actor base, A* pathfinding, cave snakes (MonsterDef data), WANDER/HUNT/SEARCH/REST/DORMANT AI, stillness camouflage (Space = wait), state markers, one snake per room. Play-tested OK.
 - Decided (James): cave snake; search then wander; camo after 3 waits, only out of sight; snakes tire (8 chase / 3 rest), dormant until first spotted.

@@ -15,10 +15,40 @@ signal moved(cell: Vector2i)
 var map: MapData
 ## Who else is on the floor (for blocking). Set when the floor is entered.
 var world: TurnManager
+## Health and combat stats (a child node named "Fighter"), or null.
+var fighter: Fighter
 
 
 func _ready() -> void:
+	fighter = get_node_or_null("Fighter") as Fighter
 	_sync_position()
+
+
+## Name used in the message log, e.g. "the pale snake" or "you".
+func display_name() -> String:
+	return "it"
+
+
+## Verb for a landed attack in the log, e.g. "bites".
+func attack_verb() -> String:
+	return "hits"
+
+
+## Verb for a missed attack in the log, e.g. "misses".
+func miss_verb() -> String:
+	return "misses"
+
+
+## True if an attack in `dir` is allowed: someone is there, and a diagonal
+## attack doesn't reach round a wall corner (same rule as moving).
+func can_attack(dir: Vector2i) -> bool:
+	if world == null or world.actor_at(grid_pos + dir) == null:
+		return false
+	if dir.x != 0 and dir.y != 0 and map != null:
+		if not map.is_walkable(grid_pos + Vector2i(dir.x, 0)) \
+				or not map.is_walkable(grid_pos + Vector2i(0, dir.y)):
+			return false
+	return true
 
 
 ## True if this actor could stand on the cell: floor, and nobody else there.

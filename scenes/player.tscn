@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dh1rvfmrv4fyu" path="res://scripts/entities/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://cq8lsna1q5unx" path="res://art/actors.png" id="2_actors"]
 [ext_resource type="Script" path="res://scripts/entities/components/direction_input.gd" id="3_input"]
+[ext_resource type="Script" path="res://scripts/entities/components/fighter.gd" id="4_fighter"]
 
 [node name="Player" type="Node2D" unique_id=1378968751]
 script = ExtResource("1_3vyb7")
@@ -11,10 +12,17 @@ script = ExtResource("1_3vyb7")
 texture = ExtResource("2_actors")
 centered = false
 hframes = 2
-vframes = 2
+vframes = 4
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=740399842]
 position = Vector2(8, 8)
 
 [node name="DirectionInput" type="Node" parent="."]
 script = ExtResource("3_input")
+
+[node name="Fighter" type="Node" parent="."]
+script = ExtResource("4_fighter")
+max_hp = 20
+accuracy = 0.8
+damage_min = 2
+damage_max = 4

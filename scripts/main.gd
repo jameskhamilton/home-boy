@@ -17,8 +17,7 @@ extends Node2D
 @onready var _enemies_root: Node2D = $Enemies
 @onready var _player: Player = $Player
 @onready var _turns: TurnManager = $TurnManager
-@onready var _seed_label: Label = $HUD/SeedLabel
-@onready var _status_label: Label = $HUD/StatusLabel
+@onready var _hud: Hud = $HUD
 
 var map: MapData
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -29,15 +28,31 @@ func _ready() -> void:
 	RenderingServer.set_default_clear_color(FogOverlay.UNEXPLORED)
 	_player.moved.connect(_on_player_moved)
 	_player.stillness_changed.connect(_on_stillness_changed)
+	_player.napping_changed.connect(func(_n: bool) -> void: _refresh_status())
+	_player.xp_changed.connect(_hud.set_xp)
+	_player.fighter.hp_changed.connect(_hud.set_hp)
 	_turns.turn_ended.connect(_on_turn_ended)
+	_turns.message.connect(_hud.add_message)
+	_turns.player_died.connect(_on_player_died)
 	var seed_value: int = fixed_seed if fixed_seed != 0 else randi()
-	new_floor(seed_value)
+	new_run(seed_value)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# R: start a fresh run (also how you continue after dying).
 	if event.is_action_pressed("debug_new_floor"):
-		new_floor(randi())
+		new_run(randi())
 		get_viewport().set_input_as_handled()
+
+
+## Permadeath means every run starts fresh: full HP, no XP, new floor.
+func new_run(seed_value: int) -> void:
+	_hud.show_game_over(false)
+	_hud.clear_messages()
+	_player.reset_for_new_run()
+	_player.modulate = Color.WHITE
+	new_floor(seed_value)
+	_turns.post_message("You wake in the dark, far from home.", MessageColours.INFO)
 
 
 ## Build a floor from the given seed, then enter it with enemies.
@@ -49,7 +64,7 @@ func new_floor(seed_value: int) -> void:
 		map = DungeonGenerator.generate(dungeon_config, rng)
 	enter_map(map)
 	_spawn_enemies()
-	_seed_label.text = "Seed %d" % seed_value
+	_hud.set_seed(seed_value)
 	print("Floor %dx%d, %d rooms, %d enemies, seed %d" % [
 		map.width, map.height, map.rooms.size(), _turns.enemies.size(), seed_value])
 
@@ -124,13 +139,26 @@ func _on_turn_ended(_turn: int) -> void:
 		enemy.refresh_visibility()
 
 
-func _on_stillness_changed(still_turns: int, camouflaged: bool) -> void:
-	if camouflaged:
-		_status_label.text = "Camouflaged"
-	elif still_turns > 0:
-		_status_label.text = "Still %d/%d" % [still_turns, _player.turns_to_camouflage]
-	else:
-		_status_label.text = ""
+func _on_stillness_changed(_still_turns: int, _camouflaged: bool) -> void:
+	_refresh_status()
+
+
+## Status line: napping and/or stillness progress.
+func _refresh_status() -> void:
+	var parts: Array[String] = []
+	if _player.napping:
+		parts.append("Napping")
+	if _player.is_camouflaged():
+		parts.append("Camouflaged")
+	elif _player.still_turns > 0:
+		parts.append("Still %d/%d" % [_player.still_turns, _player.turns_to_camouflage])
+	_hud.set_status("  ".join(parts))
+
+
+func _on_player_died() -> void:
+	_player.modulate = Color(1, 1, 1, 0.35)
+	_hud.show_game_over(true)
+
 
 
 

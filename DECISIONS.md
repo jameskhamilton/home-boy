@@ -43,3 +43,9 @@ One line each: what was decided and why. Newest at the bottom.
 - 2026-09-27 — (James) One snake per room (seeded shuffle of non-start rooms; count capped by rooms available).
 - 2026-09-27 — (James) Snakes start DORMANT, lurking in their home room, until the player first sees them; then normal WANDER/HUNT/SEARCH/REST.
 - 2026-09-27 — Connectivity re-verified after James saw an apparently sealed room: 934 random floors, 0 disconnected, 0 rooms without an exit. Awaiting a seed if it recurs.
+- 2026-09-27 — (James) All three snake designs used: green / pale / banded snake MonsterDefs, picked at random; same stats for now. actors.png rows 1–3 (col 1 = 2nd anim frame).
+- 2026-09-27 — (James) Combat = dice: roll to hit (accuracy), roll damage (min–max) minus defence, min 1. Bump to attack; diagonal attacks follow the no-corner rule. `Fighter` component on each actor.
+- 2026-09-27 — First-pass numbers: sloth 20 HP / 80% / 2–4; snakes 6 HP / 70% / 1–3 / 5 XP.
+- 2026-09-27 — (James) Nap: N toggles; heals 1 HP per turn automatically until full; counts as waiting (builds camo); any key wakes. A bite on a sleeping sloth always hits for double and wakes you.
+- 2026-09-27 — (James) Permadeath: death shows a banner; R starts a new run (full HP, 0 XP, new seed). A snake that bumps into you waits a turn before its first bite.
+- 2026-09-27 — HUD: HP bar + XP (top-left), status line, 6-line coloured message log (bottom-left), seed (bottom-right).

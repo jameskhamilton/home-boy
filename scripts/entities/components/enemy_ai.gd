@@ -139,13 +139,16 @@ func _step_toward(target: Vector2i, player: Player, pathfinder: Pathfinder) -> A
 	return _step_or_wait(dir, player)
 
 
-## Step if the way is clear. Bumping into the player gives them away (even camouflaged).
-## Next to the player while hunting = wait (attacks arrive in M7).
+## Step if the way is clear. Bumping into the player gives them away (even camouflaged)
+## and, while hunting, means attacking.
 func _step_or_wait(dir: Vector2i, player: Player) -> Action:
 	if _enemy.grid_pos + dir == player.grid_pos:
 		if state != State.HUNT:
 			state = State.HUNT
 			_last_seen = player.grid_pos
+			return WaitAction.new(_enemy) # it has just found you; it strikes next turn
+		if _enemy.can_attack(dir):
+			return MeleeAction.new(_enemy, dir)
 		return WaitAction.new(_enemy)
 	if _enemy.can_step(dir):
 		return MoveAction.new(_enemy, dir)

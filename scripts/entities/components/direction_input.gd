@@ -9,6 +9,8 @@ extends Node
 signal step_requested(dir: Vector2i)
 ## Emitted when the player wants to wait a turn (repeats while the key is held).
 signal wait_requested
+## Emitted when the nap key is pressed (toggles napping).
+signal nap_requested
 
 ## Seconds to wait after a key press for a second key, so two keys = one diagonal step.
 @export_range(0.0, 0.2) var chord_window: float = 0.06
@@ -32,6 +34,10 @@ var _wait_repeat_time: float = 0.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"nap", false):
+		nap_requested.emit()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed(&"wait", false):
 		_wait_repeat_time = repeat_delay
 		wait_requested.emit()

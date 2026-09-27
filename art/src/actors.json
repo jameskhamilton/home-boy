@@ -70,7 +70,7 @@
    ]
   },
   {
-   "name": "snake_idle_0",
+   "name": "green_snake_0",
    "atlas": [
     0,
     1
@@ -95,7 +95,7 @@
    ]
   },
   {
-   "name": "snake_idle_1",
+   "name": "green_snake_1",
    "atlas": [
     1,
     1
@@ -116,6 +116,106 @@
     "..kGgGGGGGGgGk..",
     "...kgggggggggk..",
     "....kkkkkkkkk...",
+    "................"
+   ]
+  },
+  {
+   "name": "pale_snake_0",
+   "atlas": [
+    0,
+    2
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "..........kkkk..",
+    ".........kcccck.",
+    "........kccrcckr",
+    "...kkk..kcllllk.",
+    "..kccck.kclk.kk.",
+    ".kcllclkkclk....",
+    ".kclkkclcclk....",
+    "kclk..kclllk....",
+    "kclk...kkkk.....",
+    ".kclk...........",
+    "..kk............",
+    "................"
+   ]
+  },
+  {
+   "name": "pale_snake_1",
+   "atlas": [
+    1,
+    2
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "..........kkkk..",
+    ".........kcccck.",
+    "........kccrcckr",
+    "...kkk..kcllllk.",
+    "..kccck.kclk.kk.",
+    ".kcllclkkclk....",
+    ".kclkkclcclk....",
+    "kclk..kclllk....",
+    "kclk...kkkk.....",
+    ".kclk...........",
+    "..kk............",
+    "................"
+   ]
+  },
+  {
+   "name": "banded_snake_0",
+   "atlas": [
+    0,
+    3
+   ],
+   "rows": [
+    "................",
+    ".....kkkkkk.....",
+    "....kWwwwwWk....",
+    "...kWwywwywWk...",
+    "...kwwwwwwwwk...",
+    "....kWwwwwWk....",
+    ".....kwrrwk.....",
+    "......kwwk......",
+    "......kyyk......",
+    ".....kwwwk......",
+    "....kyyyk...kk..",
+    "...kwwwkkkkkwwk.",
+    "..kwwwyyyywwwk..",
+    "..kkwwwwwwwkk...",
+    "....kkkkkkk.....",
+    "................"
+   ]
+  },
+  {
+   "name": "banded_snake_1",
+   "atlas": [
+    1,
+    3
+   ],
+   "rows": [
+    "................",
+    ".....kkkkkk.....",
+    "....kWwwwwWk....",
+    "...kWwywwywWk...",
+    "...kwwwwwwwwk...",
+    "....kWwwwwWk....",
+    ".....kwrrwk.....",
+    "......kwwk......",
+    "......kyyk......",
+    ".....kwwwk......",
+    "....kyyyk...kk..",
+    "...kwwwkkkkkwwk.",
+    "..kwwwyyyywwwk..",
+    "..kkwwwwwwwkk...",
+    "....kkkkkkk.....",
     "................"
    ]
   }

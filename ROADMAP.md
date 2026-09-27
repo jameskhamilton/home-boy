@@ -4,7 +4,7 @@ Godot **4.7.2** (standard, GDScript) · Compatibility renderer · 2D turn-based 
 Player character: a sloth.
 
 ## Current milestone
-**7. Combat** — next (questions first)
+**8. Items and gear** — next (questions first)
 
 ## Game design (decided 2026-09-27)
 - **Goal — fetch and return:** the sloth goes down through the floors, gets something precious at the bottom, then has to make it back up.
@@ -15,7 +15,7 @@ Player character: a sloth.
 ### Open design questions (decide at the milestone shown)
 - What is fetched, and why? (theme/story — before M9)
 - How many floors down? Is the way back the same floors (remembered, now harder) or new ones? (M9)
-- What does resting restore (HP only?), and how is "enemies may find you" decided? (M7–M8)
+- ~~What does resting restore~~ → nap heals 1 HP/turn; a bite on a sleeping sloth is a guaranteed double hit (M7, decided)
 - XP → gear: XP as a currency to buy gear, or pick 1 of 3 offers when you reach a threshold? (M8)
 - ~~Stillness: how many turns to hide~~ → 3 turns; only works out of sight (M6, decided)
 
@@ -26,7 +26,7 @@ Player character: a sloth.
 - [x] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
 - [x] 5. Field of view: shadowcasting, visible + explored tiles
 - [x] 6. Enemies and turns: turn manager, chase AI, blocking, stillness camouflage (hook)
-- [ ] 7. Combat: HP, attack/defence, death, message log, HP bar, XP, rest/nap
+- [x] 7. Combat: HP, attack/defence, death, message log, HP bar, XP, rest/nap
 - [ ] 8. Items and gear: end-of-floor gear choice from XP, pick up/drop, inventory UI
 - [ ] 9. Down and back: stairs, the fetch item, the return trip, difficulty scaling
 - [ ] 10. Save and load
