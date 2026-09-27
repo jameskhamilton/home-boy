@@ -1,0 +1,73 @@
+{
+ "tile": 16,
+ "palette": {
+  ".": null,
+  "k": "#1b1420",
+  "d": "#3b2a22",
+  "m": "#6b4e36",
+  "l": "#9c7a54",
+  "c": "#d9c49c",
+  "f": "#2e2a3a",
+  "F": "#3d3850",
+  "w": "#5a5468",
+  "W": "#7e7892",
+  "g": "#3e7a3a",
+  "G": "#7fb24a",
+  "r": "#b13e53",
+  "y": "#e8b04a",
+  "b": "#3b5dc9",
+  "t": "#f4efe2"
+ },
+ "sprites": [
+  {
+   "name": "sloth_idle_0",
+   "atlas": [
+    0,
+    0
+   ],
+   "rows": [
+    "................",
+    ".....kkkkkk.....",
+    "...kkmmmmmmkk...",
+    "..kmmllllllmmk..",
+    ".kmlcccccccclmk.",
+    ".kmcddccccddcmk.",
+    ".kmdkdccccdkdmk.",
+    ".kmcccckkccccmk.",
+    "..kmcckcckccmk..",
+    "...kmcckkccmk...",
+    "..kmmmmmmmmmmk..",
+    ".kmmllllllllmmk.",
+    "kmmmllllllllmmmk",
+    "kcmmllllllllmmck",
+    "kckkmmmmmmmmkkck",
+    ".k.kmmk..kmmk.k."
+   ]
+  },
+  {
+   "name": "sloth_idle_1",
+   "atlas": [
+    1,
+    0
+   ],
+   "rows": [
+    "................",
+    ".....kkkkkk.....",
+    "...kkmmmmmmkk...",
+    "..kmmllllllmmk..",
+    ".kmlcccccccclmk.",
+    ".kmcddccccddcmk.",
+    ".kmdddccccdddmk.",
+    ".kmcccckkccccmk.",
+    "..kmcckcckccmk..",
+    "...kmcckkccmk...",
+    "..kmmmmmmmmmmk..",
+    ".kmmllllllllmmk.",
+    "kmmmllllllllmmmk",
+    "kcmmllllllllmmck",
+    "kckkmmmmmmmmkkck",
+    ".k.kmmk..kmmk.k."
+   ]
+  }
+ ]
+}
