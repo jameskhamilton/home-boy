@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh1rvfmrv4fyu" path="res://scripts/entities/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://cq8lsna1q5unx" path="res://art/actors.png" id="2_actors"]
+[ext_resource type="Script" path="res://scripts/entities/components/direction_input.gd" id="3_input"]
 
 [node name="Player" type="Node2D" unique_id=1378968751]
 script = ExtResource("1_3vyb7")
@@ -13,3 +14,6 @@ hframes = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=740399842]
 position = Vector2(8, 8)
+
+[node name="DirectionInput" type="Node" parent="."]
+script = ExtResource("3_input")

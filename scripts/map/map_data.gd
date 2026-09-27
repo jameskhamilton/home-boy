@@ -13,6 +13,8 @@ var player_start: Vector2i = Vector2i.ZERO
 var rooms: Array[Rect2i] = []
 
 var _tiles: PackedByteArray
+var _visible: PackedByteArray  # 1 = in sight right now
+var _explored: PackedByteArray # 1 = seen at some point on this floor
 
 
 func _init(w: int, h: int, fill: Tile = Tile.WALL) -> void:
@@ -21,6 +23,10 @@ func _init(w: int, h: int, fill: Tile = Tile.WALL) -> void:
 	_tiles = PackedByteArray()
 	_tiles.resize(w * h)
 	_tiles.fill(fill)
+	_visible = PackedByteArray()
+	_visible.resize(w * h)
+	_explored = PackedByteArray()
+	_explored.resize(w * h)
 
 
 ## True if the cell is inside the map.
@@ -44,6 +50,25 @@ func set_tile(cell: Vector2i, tile: Tile) -> void:
 ## True if an actor can stand on this cell.
 func is_walkable(cell: Vector2i) -> bool:
 	return get_tile(cell) == Tile.FLOOR
+
+
+## True if the cell is in sight right now.
+func is_visible(cell: Vector2i) -> bool:
+	return in_bounds(cell) and _visible[cell.y * width + cell.x] == 1
+
+
+## True if the cell has ever been seen on this floor.
+func is_explored(cell: Vector2i) -> bool:
+	return in_bounds(cell) and _explored[cell.y * width + cell.x] == 1
+
+
+## Recompute what's in sight from `origin`; newly seen cells become explored.
+func update_fov(origin: Vector2i, radius: int) -> void:
+	_visible.fill(0)
+	for cell in FOV.compute(self, origin, radius):
+		var i: int = cell.y * width + cell.x
+		_visible[i] = 1
+		_explored[i] = 1
 
 
 ## Build a map from text: '#' wall, '.' floor, '@' floor + player start.

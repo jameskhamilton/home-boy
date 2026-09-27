@@ -4,18 +4,31 @@ Godot **4.7.2** (standard, GDScript) · Compatibility renderer · 2D turn-based 
 Player character: a sloth.
 
 ## Current milestone
-**Design session** (goal, progression, hook) → then **5. Field of view**
+**6. Enemies and turns** — next (questions first)
+
+## Game design (decided 2026-09-27)
+- **Goal — fetch and return:** the sloth goes down through the floors, gets something precious at the bottom, then has to make it back up.
+- **Progression — XP → gear:** XP is earned during a floor; at the end of each floor you choose gear with it.
+- **Rest (nap):** rest mid-floor to recover so you can keep exploring — but enemies may find you asleep.
+- **Hook — stillness = stealth:** staying still builds camouflage and enemies lose track of you; moving or attacking breaks it.
+
+### Open design questions (decide at the milestone shown)
+- What is fetched, and why? (theme/story — before M9)
+- How many floors down? Is the way back the same floors (remembered, now harder) or new ones? (M9)
+- What does resting restore (HP only?), and how is "enemies may find you" decided? (M7–M8)
+- XP → gear: XP as a currency to buy gear, or pick 1 of 3 offers when you reach a threshold? (M8)
+- Stillness: how many turns to hide, and can you rest while camouflaged? (M6)
 
 ## Milestones
 - [x] 1. Setup: project, Git, pixel-art settings, docs, sprites imported
 - [x] 2. The @ moves: sloth on a grid, one tile per key press
 - [x] 3. A map: hand-made floors and walls; walls block movement
 - [x] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
-- [ ] 5. Field of view: shadowcasting, visible + explored tiles
-- [ ] 6. Enemies and turns: turn manager, chase AI, blocking
-- [ ] 7. Combat: HP, attack/defence, death, message log, HP bar
-- [ ] 8. Items and inventory: healing potion, pick up/drop, inventory UI
-- [ ] 9. Descending: stairs, deeper levels, difficulty scaling
+- [x] 5. Field of view: shadowcasting, visible + explored tiles
+- [ ] 6. Enemies and turns: turn manager, chase AI, blocking, stillness camouflage (hook)
+- [ ] 7. Combat: HP, attack/defence, death, message log, HP bar, XP, rest/nap
+- [ ] 8. Items and gear: end-of-floor gear choice from XP, pick up/drop, inventory UI
+- [ ] 9. Down and back: stairs, the fetch item, the return trip, difficulty scaling
 - [ ] 10. Save and load
 - [ ] 11. Polish: tweened movement, hit flashes, screen shake, sound
 

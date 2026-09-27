@@ -17,6 +17,9 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	# Background outside the map = palette 'k'. Also in Project Settings; set here so it can't drift.
+	RenderingServer.set_default_clear_color(FogOverlay.UNEXPLORED)
+	_player.moved.connect(_on_player_moved)
 	var seed_value: int = fixed_seed if fixed_seed != 0 else randi()
 	new_floor(seed_value)
 
@@ -41,6 +44,11 @@ func new_floor(seed_value: int) -> void:
 	_seed_label.text = "Seed %d" % seed_value
 	print("Floor %dx%d, %d rooms, seed %d" % [map.width, map.height, map.rooms.size(), seed_value])
 
+
+## Every time the player lands on a cell, update what they can see.
+func _on_player_moved(cell: Vector2i) -> void:
+	map.update_fov(cell, _player.sight_radius)
+	_game_map.refresh_fog()
 
 
 

@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M5: field of view + 8-way movement
+- Done: shadowcasting FOV (radius 8), explored memory, fog overlay; DirectionInput component with two-key diagonals, own hold-repeat, no corner-cutting, wall sliding. Play-tested OK.
+- Decided (James): game design (fetch & return, XP → gear at floor end, nap mechanic, stillness = stealth); diagonals via chords; halved repeat delay; no clipping at corridor entrances.
+- Learned: automated input tests by injecting InputEventActions; FOV symmetry check matters for fair stealth.
+- Next: M6 — enemies, turn manager, chase AI, stillness camouflage.
+
 ## 2026-09-27 — M4: procedural dungeon
 - Done: seeded DungeonGenerator (zones → rooms → nearest-first corridors + loops), CorridorRouter that avoids parallel corridors, DungeonConfig .tres for tuning, seed HUD label, R = new floor. Play-tested OK.
 - Decided (James): 80×48 floors with 11–20 rooms; no clustering; no side-by-side corridors.
