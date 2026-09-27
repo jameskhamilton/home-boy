@@ -16,6 +16,25 @@ extends Resource
 ## While searching it only moves every Nth turn (2 = half pace). Gives you time to slip away.
 @export_range(1, 5) var search_pace: int = 2
 
+@export_group("Spawning")
+## Shallowest depth it appears at.
+@export_range(1, 50) var min_depth: int = 1
+## How many appear together in one room (e.g. rats come in packs).
+@export_range(1, 6) var pack_min: int = 1
+@export_range(1, 6) var pack_max: int = 1
+
+@export_group("Movement")
+## Only moves every Nth turn (2 = half speed, e.g. beetles). It can still fight every turn.
+@export_range(1, 5) var move_every: int = 1
+## Steps per turn (2 = double speed, e.g. bats).
+@export_range(1, 3) var moves_per_turn: int = 1
+## Hunts by sound, so camouflage doesn't fool it (bats).
+@export var ignores_camouflage: bool = false
+## Digs through walls towards you when it hears you move (moles).
+@export var digs: bool = false
+## How far away it hears you moving (0 = deaf). Standing still makes you silent.
+@export_range(0, 30) var hearing_radius: int = 0
+
 @export_group("Combat")
 @export_range(1, 999) var max_hp: int = 2
 ## The dice it rolls in combat (usually two). Change these per monster.

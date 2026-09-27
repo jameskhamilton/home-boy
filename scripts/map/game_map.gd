@@ -31,3 +31,8 @@ func draw_map(map: MapData) -> void:
 ## Redraw the fog after the field of view changes.
 func refresh_fog() -> void:
 	_fog.queue_redraw()
+
+
+## Redraw one cell (e.g. after a mole digs through a wall).
+func redraw_cell(map: MapData, cell: Vector2i) -> void:
+	_tiles.set_cell(cell, SOURCE_ID, ATLAS[map.get_tile(cell)])

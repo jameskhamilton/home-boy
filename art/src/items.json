@@ -18,7 +18,7 @@
   "b": "#3b5dc9",
   "t": "#f4efe2"
  },
- "note": "Things lying on the dungeon floor. Slots: [0,0] furniture crate.",
+ "note": "Things lying on the dungeon floor. Slots: [0,0] furniture crate, [1,0] healing fruit, [2,0] lucky pebble, [3,0] glow moss.",
  "sprites": [
   {
    "name": "crate",
@@ -43,6 +43,81 @@
     "..kmlllyylllmk..",
     "..kkkkkkkkkkkk..",
     "...kkkkkkkkkkk.."
+   ]
+  },
+  {
+   "name": "fruit",
+   "atlas": [
+    1,
+    0
+   ],
+   "rows": [
+    "................",
+    "........k.......",
+    ".......kgk......",
+    "......kgGgk.....",
+    ".....kkkgkk.....",
+    "....krrrrrrk....",
+    "...krrtrrrrrk...",
+    "..krrtrrrrrrrk..",
+    "..krrrrrrrrrrk..",
+    "..krrrrrrrrrdk..",
+    "..krrrrrrrrrdk..",
+    "...krrrrrrrdk...",
+    "....krrrrddk....",
+    ".....kkkkkk.....",
+    "................",
+    "................"
+   ]
+  },
+  {
+   "name": "pebble",
+   "atlas": [
+    2,
+    0
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    "....kkWWWWkk....",
+    "...kWWtWWWWWk...",
+    "..kWWtWWWWWWwk..",
+    "..kWWWWWWyWWwk..",
+    "..kWWWWWyyWWwk..",
+    "..kwWWWWWyWwwk..",
+    "...kwwWWWWwwk...",
+    "....kwwwwwwk....",
+    ".....kkkkkk.....",
+    "................",
+    "................",
+    "................"
+   ]
+  },
+  {
+   "name": "moss",
+   "atlas": [
+    3,
+    0
+   ],
+   "rows": [
+    "................",
+    "................",
+    ".......k........",
+    "....k.kyk.k.....",
+    "...kykkGkkyk....",
+    "...kkGGGGGkk....",
+    "..kGGyGGGyGGk...",
+    ".kGGGGGgGGGGGk..",
+    ".kgGGyGGGGyGgk..",
+    "..kgggGGGgggk...",
+    "...kffffffffk...",
+    "..kfFFFFFFFFfk..",
+    "...kffffffffk...",
+    "....kkkkkkkk....",
+    "................",
+    "................"
    ]
   }
  ]

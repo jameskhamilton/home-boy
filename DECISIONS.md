@@ -63,3 +63,7 @@ One line each: what was decided and why. Newest at the bottom.
 - 2026-09-27 — `GameState` autoload holds lasting progress + current trip (in memory until Save/Load in M10). `Catalog` preloads all UpgradeDef/FurnitureDef .tres. Player stats are derived from GameState in `Player.apply_loadout()`.
 - 2026-09-27 — Home scene (scenes/home.tscn) is now the main scene; E = interact (computer, ladder, stairs). Tree-house art is Claude-drawn via tools/art_home/*.py (palette-limited).
 - 2026-09-27 — Bug fix (James): after dying, Space did nothing because the sloth's 'wait' input swallowed it. The death screen now listens in _input (before everything else); Space/Enter/E carries you home.
+- 2026-09-27 — (James) Nap mechanic removed (N key, nap healing, caught-napping bite). Hammock now makes healing fruit heal +2.
+- 2026-09-27 — (James) Floor items, used on walk-over: healing fruit (+3 HP, left if you're full), lucky pebble (+1 die next fight), glow moss (+2 XP). 1–3 per floor. `ItemDef` resources in data/items/.
+- 2026-09-27 — (James) Deeper = a new creature type per depth + one more group per depth, endless. Rats (depth 2, packs of 2–3, weak dice), armoured beetle (3, defence dice, moves every other turn), bats (4, 2 steps/turn, ignore camouflage), mole (5, hears you move within 10, digs through walls, loses you when you stand still). Each has its own dice file in data/dice/.
+- 2026-09-27 — Fix: a fight whose creature is removed mid-fight now closes cleanly; R (debug new floor) is ignored during a turn/fight.

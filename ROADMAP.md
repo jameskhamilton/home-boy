@@ -4,7 +4,7 @@ Godot **4.7.2** (standard, GDScript) · Compatibility renderer · 2D turn-based 
 Player character: a sloth.
 
 ## Current milestone
-**9. Deeper** — next (questions first)
+**10. Save and load** — next
 
 ## Game design (decided 2026-09-27)
 - **Goal — fetch and return:** the sloth goes down through the floors, gets something precious at the bottom, then has to make it back up.
@@ -28,7 +28,7 @@ Player character: a sloth.
 - [x] 6. Enemies and turns: turn manager, chase AI, blocking, stillness camouflage (hook)
 - [x] 7. Combat: dice combat box (claw/shell/leaf vs bite), reroll, HP, death, message log, XP from leaves, nap
 - [x] 8. Home & trips: tree-house hub, ladder home / stairs down, furniture crates + bonuses, computer shop (3 upgrades), macaw delivery
-- [ ] 9. Deeper: depth scaling (new monsters, tougher dice), more furniture, floor pickups
+- [x] 9. Deeper: depth scaling (new monsters, tougher dice), more furniture, floor pickups
 - [ ] 10. Save and load
 - [ ] 11. Polish: tweened movement, hit flashes, screen shake, sound
 

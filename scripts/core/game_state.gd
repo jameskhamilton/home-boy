@@ -11,7 +11,7 @@ const BASE_SIGHT: int = 8
 const BASE_REROLLS: int = 1
 const BASE_DICE: int = 2
 const BASE_CAMO_TURNS: int = 3
-const BASE_NAP_HEAL: int = 1
+const BASE_FRUIT_HEAL: int = 3
 const HP_PER_TOUGH_HIDE: int = 2
 const SHOP_OFFERS: int = 3
 ## Faces of the starting sloth die, before upgrades.
@@ -31,6 +31,8 @@ var depth: int = 1
 var carried_xp: int = 0
 var carried_furniture: Array[FurnitureDef] = []
 var trip_hp: int = BASE_MAX_HP
+## Extra dice for the next fight only (lucky pebbles).
+var lucky_dice: int = 0
 
 ## What happened on the last trip, shown when you get home.
 var last_trip_summary: String = ""
@@ -77,8 +79,9 @@ func turns_to_camouflage() -> int:
 	return maxi(1, BASE_CAMO_TURNS - furniture_bonus(FurnitureDef.Bonus.CAMO_SPEED))
 
 
-func nap_heal() -> int:
-	return BASE_NAP_HEAL + furniture_bonus(FurnitureDef.Bonus.NAP_HEAL)
+## HP restored by a healing fruit (the hammock adds more).
+func fruit_heal() -> int:
+	return BASE_FRUIT_HEAL + furniture_bonus(FurnitureDef.Bonus.FRUIT_HEAL)
 
 
 func fight_xp_bonus() -> int:
@@ -116,6 +119,7 @@ func start_trip() -> void:
 	depth = 1
 	carried_xp = 0
 	carried_furniture.clear()
+	lucky_dice = 0
 	trip_hp = max_hp()
 	changed.emit()
 

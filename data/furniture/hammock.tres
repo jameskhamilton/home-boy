@@ -7,9 +7,9 @@
 script = ExtResource("1_def")
 id = &"hammock"
 display_name = "Hammock"
-description = "Naps heal 1 extra HP per turn."
+description = "A good rest: healing fruit heals 2 more HP."
 bonus = 0
-amount = 1
+amount = 2
 min_depth = 1
 texture = ExtResource("2_tex")
 home_position = Vector2(206, 114)

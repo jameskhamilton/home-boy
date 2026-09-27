@@ -10,6 +10,8 @@ signal turn_ended(turn: int)
 signal message(text: String, colour: Color)
 ## Emitted when the player's HP reaches 0.
 signal player_died
+## A digger (mole) turned a wall cell into floor.
+signal cell_dug(cell: Vector2i)
 
 var player: Player
 var enemies: Array[Enemy] = []
@@ -67,10 +69,16 @@ func play_turn(action: Action) -> void:
 			break
 		if not is_instance_valid(enemy) or not enemies.has(enemy):
 			continue
-		var enemy_action: Action = enemy.ai.take_turn(player, pathfinder, rng)
-		if enemy_action != null:
-			enemy_action.perform()
-		await _run_pending_fights()
+		# Fast creatures (bats) get several steps per turn.
+		for step in enemy.def.moves_per_turn:
+			if player.is_dead() or not is_instance_valid(enemy) or not enemies.has(enemy):
+				break
+			var enemy_action: Action = enemy.ai.take_turn(player, pathfinder, rng)
+			if enemy_action != null:
+				enemy_action.perform()
+			await _run_pending_fights()
+			if not (enemy_action is MoveAction):
+				break
 	turn += 1
 	busy = false
 	turn_ended.emit(turn)

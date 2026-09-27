@@ -10,6 +10,8 @@ extends Node
 ##   resumes; if you got out of sight, it searches (and camouflage can fool it).
 ## Camouflage rule: a camouflaged player can't be *noticed*; an enemy that is already
 ## hunting keeps tracking them only while they stay in its sight.
+## Per-monster twists come from its MonsterDef: bats ignore camouflage, moles hear you
+## move (and dig towards you), beetles only move every other turn.
 
 enum State { WANDER, HUNT, SEARCH, REST, DORMANT }
 
@@ -30,6 +32,7 @@ var _has_wander_target: bool = false
 var _chase_turns: int = 0 # consecutive turns spent hunting
 var _rest_left: int = 0
 var _search_tick: int = 0 # counts search turns, for moving at search pace
+var _move_tick: int = 0   # counts moves, for slow movers (move_every)
 
 @onready var _enemy: Enemy = get_parent()
 
@@ -37,10 +40,10 @@ var _search_tick: int = 0 # counts search turns, for moving at search pace
 ## Choose this turn's action.
 func take_turn(player: Player, pathfinder: Pathfinder, rng: RandomNumberGenerator) -> Action:
 	if state == State.DORMANT:
-		if not _enemy.map.is_visible(_enemy.grid_pos):
+		if not _enemy.map.is_visible(_enemy.grid_pos) and not hears(player):
 			_enemy.show_state(state)
 			return _lurk(player, rng)
-		state = State.WANDER # the player has spotted it: from now on it's active
+		state = State.WANDER # spotted (or it heard you): from now on it's active
 	if state == State.REST:
 		# Resting, but still watching: it keeps tracking you while you're in sight.
 		if can_see(player):
@@ -58,7 +61,8 @@ func take_turn(player: Player, pathfinder: Pathfinder, rng: RandomNumberGenerato
 			state = State.SEARCH
 			_search_left = _enemy.def.search_turns if _enemy.def != null else 5
 	var sees: bool = can_see(player)
-	var noticed: bool = sees and (state == State.HUNT or not player.is_camouflaged())
+	var fooled_by_camo: bool = player.is_camouflaged() and not _enemy.def.ignores_camouflage
+	var noticed: bool = (sees and (state == State.HUNT or not fooled_by_camo)) or hears(player)
 	if noticed:
 		state = State.HUNT
 		_last_seen = player.grid_pos
@@ -83,8 +87,23 @@ func take_turn(player: Player, pathfinder: Pathfinder, rng: RandomNumberGenerato
 			action = _search(player, pathfinder, rng)
 		_:
 			action = _wander(player, pathfinder, rng)
+	# Slow movers (beetles) only step every Nth turn; they can still fight.
+	if action is MoveAction and _enemy.def.move_every > 1:
+		_move_tick += 1
+		if _move_tick % _enemy.def.move_every != 0:
+			action = WaitAction.new(_enemy)
 	_enemy.show_state(state)
 	return action
+
+
+## True if it can hear the player: within hearing range and the player moved or fought
+## this turn (standing still is silent).
+func hears(player: Player) -> bool:
+	var radius: int = _enemy.def.hearing_radius if _enemy.def != null else 0
+	if radius <= 0 or player.still_turns > 0:
+		return false
+	var d: Vector2i = (player.grid_pos - _enemy.grid_pos).abs()
+	return maxi(d.x, d.y) <= radius
 
 
 ## True if the enemy has line of sight to the player within its sight radius.
@@ -133,6 +152,12 @@ func _wander(player: Player, pathfinder: Pathfinder, rng: RandomNumberGenerator)
 
 
 func _step_toward(target: Vector2i, player: Player, pathfinder: Pathfinder) -> Action:
+	if _enemy.def.digs:
+		# Diggers go straight at you, through walls if needed.
+		var straight: Vector2i = (target - _enemy.grid_pos).sign()
+		if straight == Vector2i.ZERO:
+			return WaitAction.new(_enemy)
+		return _step_or_wait(straight, player)
 	var dir: Vector2i = pathfinder.next_step(_enemy.grid_pos, target)
 	if dir == Vector2i.ZERO:
 		return WaitAction.new(_enemy)

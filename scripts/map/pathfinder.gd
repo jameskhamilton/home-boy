@@ -29,3 +29,8 @@ func next_step(from: Vector2i, to: Vector2i) -> Vector2i:
 	if path.size() < 2:
 		return Vector2i.ZERO
 	return path[1] - from
+
+
+## A wall became floor (a mole dug it): let paths go through it.
+func open_cell(cell: Vector2i) -> void:
+	_astar.set_point_solid(cell, false)

@@ -35,11 +35,11 @@ func _ready() -> void:
 	RenderingServer.set_default_clear_color(FogOverlay.UNEXPLORED)
 	_player.moved.connect(_on_player_moved)
 	_player.stillness_changed.connect(_on_stillness_changed)
-	_player.napping_changed.connect(func(_n: bool) -> void: _refresh_status())
 	_player.fighter.hp_changed.connect(_on_player_hp_changed)
 	_turns.turn_ended.connect(_on_turn_ended)
 	_turns.message.connect(_hud.add_message)
 	_turns.player_died.connect(_on_player_died)
+	_turns.cell_dug.connect(_on_cell_dug)
 	_combat.world = _turns
 	_combat.box = _combat_box
 	_turns.combat = _combat
@@ -49,6 +49,7 @@ func _ready() -> void:
 	new_floor(fixed_seed if fixed_seed != 0 else GameState.rng.randi())
 	_turns.post_message("You climb down into the dark. Depth %d." % GameState.depth, MessageColours.INFO)
 	_turns.post_message("Find furniture, then climb the ladder home (E).", MessageColours.MISS)
+	_announce_new_creature()
 
 
 ## Dead: catch Space/Enter before anything else can (Space is also the "wait" key,
@@ -66,7 +67,7 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _awaiting_home:
 		return
-	if event.is_action_pressed("debug_new_floor"):
+	if event.is_action_pressed("debug_new_floor") and not _turns.busy:
 		new_floor(GameState.rng.randi()) # debug: reroll this floor
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("interact"):
@@ -84,6 +85,7 @@ func new_floor(seed_value: int) -> void:
 	enter_map(map)
 	_spawn_enemies(GameState.depth - 1)
 	_spawn_furniture()
+	_spawn_items()
 	_hud.set_seed(seed_value)
 	_refresh_hud()
 	print("Depth %d: %dx%d, %d rooms, %d enemies, seed %d" % [
@@ -121,23 +123,39 @@ func spawn_enemy(def: MonsterDef, cell: Vector2i) -> Enemy:
 	return enemy
 
 
-## Place enemies one per room (never two in the same room), away from the player's
-## start room and out of sight. They start dormant until the player spots them.
-## Deeper floors get `extra` more.
+## Place enemies one group per room, away from the player's start room and out of sight.
+## Only creatures whose min_depth has been reached can appear; deeper floors get `extra`
+## more groups. Most come alone; some (rats) come in packs. They start dormant.
 func _spawn_enemies(extra: int = 0) -> void:
-	if monster_types.is_empty() or map.rooms.is_empty():
+	var eligible: Array[MonsterDef] = []
+	for def in monster_types:
+		if def.min_depth <= GameState.depth:
+			eligible.append(def)
+	if eligible.is_empty() or map.rooms.is_empty():
 		return
 	var candidates: Array[Rect2i] = _shuffled_rooms_except_start()
-	var count: int = rng.randi_range(dungeon_config.enemy_count_min, dungeon_config.enemy_count_max) + extra
-	count = mini(count, candidates.size())
-	for i in count:
+	var groups: int = rng.randi_range(dungeon_config.enemy_count_min, dungeon_config.enemy_count_max) + extra
+	groups = mini(groups, candidates.size())
+	for i in groups:
 		var room: Rect2i = candidates[i]
-		var cell: Vector2i = _free_cell_in(room)
+		var def: MonsterDef = eligible[rng.randi_range(0, eligible.size() - 1)]
+		for n in rng.randi_range(def.pack_min, def.pack_max):
+			var cell: Vector2i = _free_cell_in(room)
+			if cell.x < 0:
+				break
+			var enemy: Enemy = spawn_enemy(def, cell)
+			enemy.ai.home_room = room
+
+
+## A few small items per floor: healing fruit, lucky pebbles, glow moss.
+func _spawn_items() -> void:
+	var rooms: Array[Rect2i] = _shuffled_rooms_except_start()
+	for i in mini(rng.randi_range(1, 3), rooms.size()):
+		var cell: Vector2i = _free_cell_in(rooms[i])
 		if cell.x < 0:
 			continue
-		var def: MonsterDef = monster_types[rng.randi_range(0, monster_types.size() - 1)]
-		var enemy: Enemy = spawn_enemy(def, cell)
-		enemy.ai.home_room = room
+		var item: ItemDef = Catalog.ITEMS[rng.randi_range(0, Catalog.ITEMS.size() - 1)]
+		_add_pickup(Pickup.new(null, item, cell))
 
 
 ## One furniture crate per floor (if there's anything left to find at this depth).
@@ -148,12 +166,15 @@ func _spawn_furniture() -> void:
 	for room in _shuffled_rooms_except_start():
 		var cell: Vector2i = _free_cell_in(room)
 		if cell.x >= 0:
-			var pickup := Pickup.new(furniture, cell)
-			_enemies_root.add_child(pickup)
-			_enemies_root.move_child(pickup, 0) # draw under snakes
-			_pickups.append(pickup)
-			pickup.refresh_visibility(map)
+			_add_pickup(Pickup.new(furniture, null, cell))
 			return
+
+
+func _add_pickup(pickup: Pickup) -> void:
+	_enemies_root.add_child(pickup)
+	_enemies_root.move_child(pickup, 0) # draw under creatures
+	_pickups.append(pickup)
+	pickup.refresh_visibility(map)
 
 
 func _shuffled_rooms_except_start() -> Array[Rect2i]:
@@ -198,6 +219,7 @@ func _interact() -> void:
 		GameState.descend()
 		new_floor(GameState.rng.randi())
 		_turns.post_message("You go deeper. Depth %d." % GameState.depth, MessageColours.INFO)
+		_announce_new_creature()
 	else:
 		_turns.post_message("Nothing to use here. (E works on the ladder and stairs.)", MessageColours.MISS)
 
@@ -207,10 +229,7 @@ func _on_player_moved(cell: Vector2i) -> void:
 	map.update_fov(cell, _player.sight_radius)
 	_game_map.refresh_fog()
 	for pickup in _pickups.duplicate():
-		if pickup.grid_pos == cell:
-			GameState.carry(pickup.furniture)
-			_turns.post_message("You found a %s! Carry it home. (%s)" % [
-				pickup.furniture.display_name.to_lower(), pickup.furniture.description], MessageColours.GOOD)
+		if pickup.grid_pos == cell and _take(pickup):
 			_pickups.erase(pickup)
 			pickup.queue_free()
 		else:
@@ -219,6 +238,39 @@ func _on_player_moved(cell: Vector2i) -> void:
 		_turns.post_message("The ladder home. Press E to climb up and bank what you carry.", MessageColours.MISS)
 	elif cell == map.stairs_pos:
 		_turns.post_message("Stairs down. Press E to go deeper.", MessageColours.MISS)
+
+
+## Walked onto a pickup: carry furniture, or use an item. Returns false to leave it there.
+func _take(pickup: Pickup) -> bool:
+	if pickup.furniture != null:
+		GameState.carry(pickup.furniture)
+		_turns.post_message("You found a %s! Carry it home. (%s)" % [
+			pickup.furniture.display_name.to_lower(), pickup.furniture.description], MessageColours.GOOD)
+		return true
+	var item: ItemDef = pickup.item
+	match item.effect:
+		ItemDef.Effect.HEAL:
+			if _player.fighter.hp >= _player.fighter.max_hp:
+				_turns.post_message("A healing fruit. You're not hurt, so you leave it for later.", MessageColours.MISS)
+				return false
+			var healed: int = _player.fighter.heal(GameState.fruit_heal())
+			_turns.post_message("You eat a healing fruit. +%d HP" % healed, MessageColours.HIT)
+		ItemDef.Effect.LUCKY_DIE:
+			GameState.lucky_dice += item.amount
+			_turns.post_message("A lucky pebble! +%d die in your next fight." % item.amount, MessageColours.GOOD)
+			_refresh_status()
+		ItemDef.Effect.XP:
+			GameState.add_xp(item.amount)
+			_turns.post_message("Glowing moss. +%d XP" % item.amount, MessageColours.GOOD)
+	return true
+
+
+## A mole dug through a wall: redraw it, let paths through, and refresh sight.
+func _on_cell_dug(cell: Vector2i) -> void:
+	_game_map.redraw_cell(map, cell)
+	_turns.pathfinder.open_cell(cell)
+	map.update_fov(_player.grid_pos, _player.sight_radius)
+	_game_map.refresh_fog()
 
 
 ## After everyone has acted, show only the enemies the player can see.
@@ -236,15 +288,15 @@ func _on_stillness_changed(_still_turns: int, _camouflaged: bool) -> void:
 	_refresh_status()
 
 
-## Status line: napping and/or stillness progress.
+## Status line: stillness progress.
 func _refresh_status() -> void:
 	var parts: Array[String] = []
-	if _player.napping:
-		parts.append("Napping")
 	if _player.is_camouflaged():
 		parts.append("Camouflaged")
 	elif _player.still_turns > 0:
 		parts.append("Still %d/%d" % [_player.still_turns, _player.turns_to_camouflage])
+	if GameState.lucky_dice > 0:
+		parts.append("Lucky pebble: +%d die next fight" % GameState.lucky_dice)
 	_hud.set_status("  ".join(parts))
 
 
@@ -264,3 +316,10 @@ func _on_player_died() -> void:
 	if not GameState.carried_furniture.is_empty():
 		lost += " and your furniture"
 	_hud.show_game_over(true, "You collapse...\nA macaw carries you home.\nYou lose %s.\n\nPress Space" % lost)
+
+
+## A hint when a new kind of creature starts appearing at this depth.
+func _announce_new_creature() -> void:
+	for def in monster_types:
+		if def.min_depth == GameState.depth and def.min_depth > 1:
+			_turns.post_message("Something new lives down here: the %s." % def.display_name, MessageColours.HURT)

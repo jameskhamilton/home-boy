@@ -26,6 +26,36 @@ func _ready() -> void:
 	show_state(EnemyAI.State.WANDER)
 
 
+## Diggers (moles) can tunnel into any wall except the map's outer edge.
+func can_enter(cell: Vector2i) -> bool:
+	if def != null and def.digs and map != null and _is_inner(cell):
+		var other: Actor = world.actor_at(cell) if world != null else null
+		return other == null or other == self
+	return super(cell)
+
+
+## Diggers ignore the no-corner-cutting rule (they just dig).
+func can_step(dir: Vector2i) -> bool:
+	if def != null and def.digs:
+		return can_enter(grid_pos + dir)
+	return super(dir)
+
+
+## Moving into a wall digs it out first.
+func move(dir: Vector2i) -> bool:
+	if not can_step(dir):
+		return false
+	var target: Vector2i = grid_pos + dir
+	if def != null and def.digs and not map.is_walkable(target):
+		map.set_tile(target, MapData.Tile.FLOOR)
+		world.cell_dug.emit(target)
+	return super(dir)
+
+
+func _is_inner(cell: Vector2i) -> bool:
+	return cell.x > 0 and cell.y > 0 and cell.x < map.width - 1 and cell.y < map.height - 1
+
+
 func display_name() -> String:
 	return "the " + (def.display_name if def != null else "monster")
 

@@ -4,7 +4,7 @@ extends Resource
 ## and gives a lasting bonus. New furniture = a new .tres (then add it to Catalog).
 
 enum Bonus {
-	NAP_HEAL,   ## Naps heal this much extra per turn.
+	FRUIT_HEAL, ## Healing fruit heals this much extra.
 	SIGHT,      ## +sight radius.
 	MAX_HP,     ## +max HP.
 	FIGHT_XP,   ## +XP for every fight won.

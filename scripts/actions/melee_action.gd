@@ -23,8 +23,7 @@ func perform() -> bool:
 	var player_started: bool = actor is Player
 	world.request_combat(CombatRequest.new(
 		enemy,
-		player_started and player.is_camouflaged(), # ambush: +1 die
-		not player_started and player.napping))     # caught napping: free double bite
+		player_started and player.is_camouflaged())) # ambush: +1 die
 	return true
 
 

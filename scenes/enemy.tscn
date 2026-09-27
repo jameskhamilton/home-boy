@@ -12,7 +12,7 @@ script = ExtResource("1_enemy")
 texture = ExtResource("2_actors")
 centered = false
 hframes = 2
-vframes = 4
+vframes = 8
 frame = 2
 
 [node name="StateLabel" type="Label" parent="."]

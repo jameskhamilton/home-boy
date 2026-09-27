@@ -1,13 +1,11 @@
 class_name Player
 extends Actor
 ## The sloth. Turns input into Actions for the TurnManager, and tracks stillness:
-## waiting (or napping) `turns_to_camouflage` turns in a row makes the sloth camouflaged.
-## Walking into an enemy attacks it. N starts a nap that heals until full or interrupted.
+## waiting `turns_to_camouflage` turns in a row makes the sloth camouflaged.
+## Walking into an enemy attacks it.
 
 ## Emitted after each turn with the current stillness state (for the HUD).
 signal stillness_changed(still_turns: int, camouflaged: bool)
-## Emitted when a nap starts or ends.
-signal napping_changed(napping: bool)
 
 ## Waits in a row needed to become camouflaged.
 @export_range(1, 10) var turns_to_camouflage: int = 3
@@ -19,19 +17,10 @@ signal napping_changed(napping: bool)
 ## How many dice the sloth may reroll per combat round (one die, once). XP upgrades later.
 @export_range(0, 5) var rerolls_per_round: int = 1
 
-## Seconds between turns while napping (so you can watch it happen).
-@export_range(0.02, 1.0) var nap_turn_delay: float = 0.12
-
 const CAMO_TINT: Color = Color(0.55, 0.85, 0.5, 0.75)
 
 ## Consecutive turns spent waiting.
 var still_turns: int = 0
-## HP healed per nap turn (furniture can raise it).
-var nap_heal: int = 1
-## True while napping: turns pass automatically until healed or woken.
-var napping: bool = false
-
-var _nap_timer: float = 0.0
 
 @onready var _camera: Camera2D = $Camera2D
 @onready var _input: DirectionInput = $DirectionInput
@@ -42,20 +31,6 @@ func _ready() -> void:
 	super()
 	_input.step_requested.connect(_on_step_requested)
 	_input.wait_requested.connect(_on_wait_requested)
-	_input.nap_requested.connect(_on_nap_requested)
-
-
-func _process(delta: float) -> void:
-	if not napping or _is_busy():
-		return
-	_nap_timer -= delta
-	if _nap_timer > 0.0:
-		return
-	_nap_timer = nap_turn_delay
-	if fighter.hp >= fighter.max_hp:
-		wake("You wake up refreshed.")
-		return
-	_submit(NapAction.new(self))
 
 
 func display_name() -> String:
@@ -79,26 +54,13 @@ func gain_xp(amount: int) -> void:
 	GameState.add_xp(amount)
 
 
-## Stop napping (optionally with a message for the log).
-func wake(message: String = "") -> void:
-	if not napping:
-		return
-	napping = false
-	napping_changed.emit(false)
-	if message != "" and world != null:
-		world.post_message(message, MessageColours.INFO)
-
-
 ## Take stats from GameState (upgrades + furniture) and the trip's current HP.
 func apply_loadout() -> void:
-	napping = false
-	napping_changed.emit(false)
 	dice = GameState.player_dice()
 	ambush_die = dice[0]
 	rerolls_per_round = GameState.rerolls_per_round()
 	sight_radius = GameState.sight_radius()
 	turns_to_camouflage = GameState.turns_to_camouflage()
-	nap_heal = GameState.nap_heal()
 	fighter.max_hp = GameState.max_hp()
 	fighter.hp = clampi(GameState.trip_hp, 1, fighter.max_hp)
 	fighter.hp_changed.emit(fighter.hp, fighter.max_hp)
@@ -139,7 +101,6 @@ func set_camera_limits(map_size_px: Vector2i) -> void:
 func _on_step_requested(dir: Vector2i) -> void:
 	if is_dead() or _is_busy():
 		return
-	wake()
 	# Walking into an enemy attacks it.
 	if can_attack(dir) and world.actor_at(grid_pos + dir) is Enemy:
 		_submit(MeleeAction.new(self, dir))
@@ -152,25 +113,7 @@ func _on_step_requested(dir: Vector2i) -> void:
 func _on_wait_requested() -> void:
 	if is_dead() or _is_busy():
 		return
-	wake()
 	_submit(WaitAction.new(self))
-
-
-func _on_nap_requested() -> void:
-	if is_dead() or _is_busy():
-		return
-	if napping:
-		wake()
-		return
-	if fighter.hp >= fighter.max_hp:
-		if world != null:
-			world.post_message("You're not tired.", MessageColours.MISS)
-		return
-	napping = true
-	_nap_timer = 0.0
-	napping_changed.emit(true)
-	if world != null:
-		world.post_message("You curl up for a nap...", MessageColours.INFO)
 
 
 func _resolve_step(dir: Vector2i) -> Vector2i:

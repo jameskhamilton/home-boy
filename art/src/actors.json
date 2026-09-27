@@ -218,6 +218,206 @@
     "....kkkkkkk.....",
     "................"
    ]
+  },
+  {
+   "name": "rat_0",
+   "atlas": [
+    0,
+    4
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "....kk..........",
+    "...krrk.........",
+    "..krWWwkkkk.....",
+    ".kWtkWWwwwwkk...",
+    "krWWWWWWWWWwwk..",
+    ".kWWWWWWWWWWWwk.",
+    "..kwWWWWWWWWWwkk",
+    "...kwwwwwwwwwkrr",
+    "....kkkkkkkkkkrk",
+    "..........krrrk.",
+    "...........kkk..",
+    "................"
+   ]
+  },
+  {
+   "name": "rat_1",
+   "atlas": [
+    1,
+    4
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "................",
+    "....kk..........",
+    "...krrk.........",
+    "..krWWwkkkk.....",
+    ".kWtkWWwwwwkk...",
+    "krWWWWWWWWWwwk..",
+    ".kWWWWWWWWWWWwk.",
+    "..kwWWWWWWWWWwkk",
+    "...kwwwwwwwwwkrr",
+    "....kkkkkkkkkkrk",
+    "..........krrrk.",
+    "...........kkk..",
+    "................"
+   ]
+  },
+  {
+   "name": "beetle_0",
+   "atlas": [
+    0,
+    5
+   ],
+   "rows": [
+    "................",
+    "................",
+    "......k..k......",
+    "......kkkk......",
+    ".....kwFFwk.....",
+    "....kbbbbbbk....",
+    "...kbbbtbbbbk...",
+    "..kkbbtbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "..kkbbbbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "..kkbbbbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "....kbbbkbbk....",
+    ".....kkk.kk.....",
+    "................"
+   ]
+  },
+  {
+   "name": "beetle_1",
+   "atlas": [
+    1,
+    5
+   ],
+   "rows": [
+    "................",
+    "................",
+    "......k..k......",
+    "......kkkk......",
+    ".....kwFFwk.....",
+    "....kbbbbbbk....",
+    "...kbbbtbbbbk...",
+    "..kkbbtbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "..kkbbbbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "..kkbbbbkbbbkk..",
+    "...kbbbbkbbbk...",
+    "....kbbbkbbk....",
+    ".....kkk.kk.....",
+    "................"
+   ]
+  },
+  {
+   "name": "bat_0",
+   "atlas": [
+    0,
+    6
+   ],
+   "rows": [
+    "................",
+    "................",
+    "......k..k......",
+    ".....kwkkwk.....",
+    "kk..kwwwwwwk..kk",
+    "wwk.kwrwwrwk.kww",
+    "wWwkkwwwwwwkkwWw",
+    "wWWwkwwttwwkwWWw",
+    "wWWWwwwwwwwwWWWw",
+    "kwWWWwwwwwwWWWwk",
+    ".kwWwkwwwwkwWwk.",
+    "..kwk.kwwk.kwk..",
+    "...k...kk...k...",
+    "................",
+    "................",
+    "................"
+   ]
+  },
+  {
+   "name": "bat_1",
+   "atlas": [
+    1,
+    6
+   ],
+   "rows": [
+    "................",
+    "................",
+    "......k..k......",
+    ".....kwkkwk.....",
+    "kk..kwwwwwwk..kk",
+    "wwk.kwrwwrwk.kww",
+    "wWwkkwwwwwwkkwWw",
+    "wWWwkwwttwwkwWWw",
+    "wWWWwwwwwwwwWWWw",
+    "kwWWWwwwwwwWWWwk",
+    ".kwWwkwwwwkwWwk.",
+    "..kwk.kwwk.kwk..",
+    "...k...kk...k...",
+    "................",
+    "................",
+    "................"
+   ]
+  },
+  {
+   "name": "mole_0",
+   "atlas": [
+    0,
+    7
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    "....kkddddkk....",
+    "...kddmmmmddk...",
+    "..kdmmmmmmmmdk..",
+    ".kdmkmmmmmmmmdk.",
+    "krrmmmmmmmmmmmdk",
+    "krrdmmmmmmmmmmdk",
+    ".kttkdmmmmmmdkk.",
+    "ktktkkddddddk...",
+    ".k.k..kkttkttk..",
+    "........kk.kk...",
+    "................",
+    "................"
+   ]
+  },
+  {
+   "name": "mole_1",
+   "atlas": [
+    1,
+    7
+   ],
+   "rows": [
+    "................",
+    "................",
+    "................",
+    "......kkkk......",
+    "....kkddddkk....",
+    "...kddmmmmddk...",
+    "..kdmmmmmmmmdk..",
+    ".kdmkmmmmmmmmdk.",
+    "krrmmmmmmmmmmmdk",
+    "krrdmmmmmmmmmmdk",
+    ".kttkdmmmmmmdkk.",
+    "ktktkkddddddk...",
+    ".k.k..kkttkttk..",
+    "........kk.kk...",
+    "................",
+    "................"
+   ]
   }
  ]
 }

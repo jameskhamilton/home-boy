@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MonsterDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/monster_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://data/dice/beetle_die.tres" id="2_die"]
+[ext_resource type="Script" path="res://scripts/combat/die_def.gd" id="3_diedef"]
+
+[resource]
+script = ExtResource("1_def")
+display_name = "armoured beetle"
+atlas_coords = Vector2i(0, 5)
+sight_radius = 5
+search_turns = 3
+chase_stamina = 8
+rest_turns = 3
+search_pace = 2
+min_depth = 3
+move_every = 2
+max_hp = 4
+dice = Array[ExtResource("3_diedef")]([ExtResource("2_die"), ExtResource("2_die")])

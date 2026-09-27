@@ -131,7 +131,7 @@ func choose_die(count: int) -> int:
 
 
 ## Tumble every die, then land on the given faces. An empty `player_faces`
-## means the sloth isn't rolling (asleep): its dice stay blank. Awaitable.
+## means the sloth isn't rolling: its dice stay blank. Awaitable.
 func roll_dice(player_faces: Array[DieDef.Face], enemy_faces: Array[DieDef.Face]) -> void:
 	_result.text = ""
 	var rolling: Array[TextureRect] = _enemy_rects.duplicate()
@@ -190,20 +190,23 @@ func _build_dice(row: HBoxContainer, dice: Array[DieDef]) -> Array[TextureRect]:
 	for child in row.get_children():
 		child.queue_free()
 	var rects: Array[TextureRect] = []
+	# Shrink the dice a little when there are lots of them (upgrades + ambush + pebbles).
+	var size: float = 32.0 if dice.size() <= 4 else 22.0
+	row.add_theme_constant_override("separation", 6 if dice.size() <= 4 else 3)
 	for i in dice.size():
 		var rect := TextureRect.new()
-		rect.custom_minimum_size = Vector2(32, 32)
+		rect.custom_minimum_size = Vector2(size, size)
 		rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		rect.stretch_mode = TextureRect.STRETCH_SCALE
-		rect.pivot_offset = Vector2(16, 16)
+		rect.pivot_offset = Vector2(size, size) / 2.0
 		rect.mouse_filter = Control.MOUSE_FILTER_STOP
 		_show_face(rect, dice[i], DieDef.Face.BLANK)
 		if row == _player_dice_row:
 			# Key hint under each of the sloth's dice ("1", "2", ...).
 			var hint := Label.new()
 			hint.text = str(i + 1)
-			hint.position = Vector2(0, 32)
-			hint.size = Vector2(32, 10)
+			hint.position = Vector2(0, size)
+			hint.size = Vector2(size, 10)
 			hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			hint.add_theme_font_size_override("font_size", 8)
 			hint.add_theme_color_override("font_color", Color("#7e7892"))

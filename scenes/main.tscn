@@ -13,11 +13,15 @@
 [ext_resource type="Resource" path="res://data/monsters/banded_snake.tres" id="11_banded"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_box.tscn" id="12_box"]
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="13_combat"]
+[ext_resource type="Resource" path="res://data/monsters/cave_rat.tres" id="14_rat"]
+[ext_resource type="Resource" path="res://data/monsters/beetle.tres" id="15_beetle"]
+[ext_resource type="Resource" path="res://data/monsters/bat.tres" id="16_bat"]
+[ext_resource type="Resource" path="res://data/monsters/mole.tres" id="17_mole"]
 
 [node name="Main" type="Node2D" unique_id=1433055254]
 script = ExtResource("1_main")
 dungeon_config = ExtResource("4_cfg")
-monster_types = Array[ExtResource("8_def")]([ExtResource("5_snake"), ExtResource("10_pale"), ExtResource("11_banded")])
+monster_types = Array[ExtResource("8_def")]([ExtResource("5_snake"), ExtResource("10_pale"), ExtResource("11_banded"), ExtResource("14_rat"), ExtResource("15_beetle"), ExtResource("16_bat"), ExtResource("17_mole")])
 enemy_scene = ExtResource("6_enemy")
 
 [node name="GameMap" parent="." instance=ExtResource("2_map")]

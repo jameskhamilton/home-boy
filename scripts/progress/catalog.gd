@@ -1,6 +1,6 @@
 class_name Catalog
 extends RefCounted
-## Every upgrade and furniture piece in the game. Add new .tres files here.
+## Every upgrade, furniture piece and floor item in the game. Add new .tres files here.
 ## (Explicit preloads work in exported builds, unlike scanning folders.)
 
 const UPGRADES: Array[UpgradeDef] = [
@@ -17,4 +17,10 @@ const FURNITURE: Array[FurnitureDef] = [
 	preload("res://data/furniture/rug.tres"),
 	preload("res://data/furniture/bookshelf.tres"),
 	preload("res://data/furniture/armchair.tres"),
+]
+
+const ITEMS: Array[ItemDef] = [
+	preload("res://data/items/fruit.tres"),
+	preload("res://data/items/pebble.tres"),
+	preload("res://data/items/moss.tres"),
 ]

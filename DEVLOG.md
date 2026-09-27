@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M9: deeper
+- Done: nap removed; floor items (healing fruit, lucky pebble, glow moss); new creature per depth (rats, armoured beetle, bats, mole) each with own dice and a twist (packs, slow, fast + ignores camo, hears + digs); +1 group per depth; endless. Fixed fights freezing if their creature vanished.
+- Decided (James): all four creatures; new creatures + more per depth; endless; drop the nap.
+- Learned: test scripts must drive fights to completion (and never be left running for James).
+- Next: M10 — save and load (house, upgrades, banked XP).
+
 ## 2026-09-27 — M8: home & trips
 - Done: tree-house hub scene (Claude-drawn art), ladder home / stairs down on every floor, furniture crates with lasting bonuses, carried vs banked XP, death sends you home, computer shop (3 random upgrades) with macaw delivery, GameState autoload, Catalog of upgrades/furniture.
 - Decided (James): the sloth fetches furniture to become a home boy; house + upgrades persist; ladder home on every floor; furniture gives small bonuses.
