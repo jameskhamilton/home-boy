@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progress/upgrade_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"tough_hide"
+display_name = "Tough hide"
+description = "+2 max HP."
+kind = 4
+base_cost = 4
+cost_step = 4
+max_count = 5

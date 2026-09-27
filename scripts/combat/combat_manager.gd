@@ -71,6 +71,10 @@ func fight(request: CombatRequest) -> void:
 		box.show_result(line, result.to_enemy, result.to_player, enemy.fighter.hp, player.fighter.hp)
 
 	var won: bool = enemy.fighter.is_dead()
+	if won and GameState.fight_xp_bonus() > 0:
+		player.gain_xp(GameState.fight_xp_bonus()) # bookshelf at home
+		fight_xp += GameState.fight_xp_bonus()
+		box.set_fight_xp(fight_xp, true)
 	box.set_prompt("Space: continue")
 	var xp_note: String = "  +%d XP" % fight_xp if fight_xp > 0 else ""
 	box.set_banner(("%s is defeated!" % MeleeAction._cap(enemy_name) if won else "You collapse...") + xp_note)

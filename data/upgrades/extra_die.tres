@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progress/upgrade_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"extra_die"
+display_name = "Extra die"
+description = "Roll one more sloth die in every fight."
+kind = 1
+base_cost = 15
+cost_step = 15
+max_count = 2

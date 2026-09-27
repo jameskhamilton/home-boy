@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FurnitureDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/progress/furniture_def.gd" id="1_def"]
+[ext_resource type="Texture2D" path="res://art/home/armchair.png" id="2_tex"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"armchair"
+display_name = "Armchair"
+description = "Camouflage takes 1 turn less."
+bonus = 4
+amount = 1
+min_depth = 3
+texture = ExtResource("2_tex")
+home_position = Vector2(308, 172)

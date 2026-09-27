@@ -13,6 +13,8 @@ var _messages: Array[String] = []
 @onready var _hp_fill: ColorRect = $HpBar/Fill
 @onready var _hp_label: Label = $HpLabel
 @onready var _xp_label: Label = $XpLabel
+@onready var _depth_label: Label = $DepthLabel
+@onready var _carry_label: Label = $CarryLabel
 @onready var _status_label: Label = $StatusLabel
 @onready var _seed_label: Label = $SeedLabel
 @onready var _log: RichTextLabel = $MessageLog
@@ -26,8 +28,18 @@ func set_hp(hp: int, max_hp: int) -> void:
 	_hp_label.text = "HP %d/%d" % [hp, max_hp]
 
 
-func set_xp(xp: int) -> void:
-	_xp_label.text = "XP %d" % xp
+## XP carried on this trip (lost if you die) and XP safely banked at home.
+func set_xp(carried: int, banked: int) -> void:
+	_xp_label.text = "XP %d   (home %d)" % [carried, banked]
+
+
+func set_depth(depth: int) -> void:
+	_depth_label.text = "Depth %d" % depth
+
+
+## Furniture being carried home (empty = nothing).
+func set_carrying(names: String) -> void:
+	_carry_label.text = "Carrying: " + names if names != "" else ""
 
 
 func set_status(text: String) -> void:
@@ -51,5 +63,7 @@ func clear_messages() -> void:
 	_log.text = ""
 
 
-func show_game_over(shown: bool) -> void:
+func show_game_over(shown: bool, text: String = "") -> void:
 	_game_over.visible = shown
+	if text != "":
+		_game_over.text = text

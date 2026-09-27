@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M8: home & trips
+- Done: tree-house hub scene (Claude-drawn art), ladder home / stairs down on every floor, furniture crates with lasting bonuses, carried vs banked XP, death sends you home, computer shop (3 random upgrades) with macaw delivery, GameState autoload, Catalog of upgrades/furniture.
+- Decided (James): the sloth fetches furniture to become a home boy; house + upgrades persist; ladder home on every floor; furniture gives small bonuses.
+- Learned: a temporary autoload can drive tests across scene changes; careful slicing when editing scripts (lost 3 functions once, caught by the run).
+- Next: M9 — deeper floors (scaling, new monsters, more furniture); then save/load.
+
 ## 2026-09-27 — M7: dice combat (done, tuning to follow)
 - Done: combat "cut scene" box with 2 dice each, King of Tokyo-style rules (claws − defence = damage, leaves = XP, kills give none), one reroll per round, ambush die, caught-napping double bite, fight-XP counter, James's own dice art imported (tools/import_dice.py).
 - Decided (James): dice game over plain stat combat; 3 shell/2 claw/1 leaf sloth die; snakes 4 attack/2 defence; fights to the death.

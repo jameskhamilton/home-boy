@@ -9,6 +9,8 @@ const SOURCE_ID: int = 0
 const ATLAS: Dictionary[int, Vector2i] = {
 	MapData.Tile.FLOOR: Vector2i(0, 0),
 	MapData.Tile.WALL: Vector2i(1, 0),
+	MapData.Tile.LADDER_UP: Vector2i(2, 0),
+	MapData.Tile.STAIRS_DOWN: Vector2i(3, 0),
 }
 
 @onready var _tiles: TileMapLayer = $Tiles

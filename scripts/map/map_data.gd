@@ -3,12 +3,15 @@ extends RefCounted
 ## One dungeon floor as plain data: a width x height grid of tile types.
 ## This is the source of truth for the map. GameMap only draws it.
 
-enum Tile { FLOOR, WALL }
+enum Tile { FLOOR, WALL, LADDER_UP, STAIRS_DOWN }
 
 var width: int
 var height: int
 ## Where the player starts on this floor (in tiles).
 var player_start: Vector2i = Vector2i.ZERO
+## Where the ladder home and the stairs down are (set by the generator).
+var ladder_pos: Vector2i = Vector2i(-1, -1)
+var stairs_pos: Vector2i = Vector2i(-1, -1)
 ## Rooms on this floor (empty for hand-made maps). Used later for spawning.
 var rooms: Array[Rect2i] = []
 
@@ -47,9 +50,9 @@ func set_tile(cell: Vector2i, tile: Tile) -> void:
 		_tiles[cell.y * width + cell.x] = tile
 
 
-## True if an actor can stand on this cell.
+## True if an actor can stand on this cell (floor, ladder or stairs).
 func is_walkable(cell: Vector2i) -> bool:
-	return get_tile(cell) == Tile.FLOOR
+	return get_tile(cell) != Tile.WALL
 
 
 ## True if the cell is in sight right now.
@@ -71,7 +74,8 @@ func update_fov(origin: Vector2i, radius: int) -> void:
 		_explored[i] = 1
 
 
-## Build a map from text: '#' wall, '.' floor, '@' floor + player start.
+## Build a map from text: '#' wall, '.' floor, '@' floor + player start,
+## '<' ladder home (also the start), '>' stairs down.
 ## Lines must all be the same length.
 static func from_text(text: String) -> MapData:
 	var lines: PackedStringArray = text.strip_edges().split("\n")
@@ -86,6 +90,13 @@ static func from_text(text: String) -> MapData:
 			var cell := Vector2i(x, y)
 			if ch == "#":
 				map.set_tile(cell, Tile.WALL)
+			elif ch == "<":
+				map.set_tile(cell, Tile.LADDER_UP)
+				map.ladder_pos = cell
+				map.player_start = cell
+			elif ch == ">":
+				map.set_tile(cell, Tile.STAIRS_DOWN)
+				map.stairs_pos = cell
 			else:
 				map.set_tile(cell, Tile.FLOOR)
 				if ch == "@":

@@ -32,7 +32,35 @@ static func generate(config: DungeonConfig, rng: RandomNumberGenerator) -> MapDa
 
 	map.rooms = rooms
 	map.player_start = rooms[rng.randi_range(0, rooms.size() - 1)].get_center()
+	# You arrive by the ladder home; the stairs down are in the farthest room (by walking distance).
+	map.ladder_pos = map.player_start
+	map.set_tile(map.ladder_pos, MapData.Tile.LADDER_UP)
+	map.stairs_pos = _farthest_room_center(map, rooms)
+	map.set_tile(map.stairs_pos, MapData.Tile.STAIRS_DOWN)
 	return map
+
+
+## Centre of the room furthest (in steps) from the player's start.
+static func _farthest_room_center(map: MapData, rooms: Array[Rect2i]) -> Vector2i:
+	var dist: Dictionary[Vector2i, int] = {map.player_start: 0}
+	var queue: Array[Vector2i] = [map.player_start]
+	var head: int = 0
+	while head < queue.size():
+		var c: Vector2i = queue[head]
+		head += 1
+		for d: Vector2i in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
+			var n: Vector2i = c + d
+			if map.is_walkable(n) and not dist.has(n):
+				dist[n] = dist[c] + 1
+				queue.append(n)
+	var best: Vector2i = map.player_start
+	var best_d: int = -1
+	for room in rooms:
+		var centre: Vector2i = room.get_center()
+		if centre != map.player_start and dist.get(centre, -1) > best_d:
+			best_d = dist[centre]
+			best = centre
+	return best
 
 
 ## One room per zone (skipping some at random), kept inside the zone with a wall margin.

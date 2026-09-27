@@ -6,8 +6,6 @@ extends Actor
 
 ## Emitted after each turn with the current stillness state (for the HUD).
 signal stillness_changed(still_turns: int, camouflaged: bool)
-## Emitted when XP changes.
-signal xp_changed(xp: int)
 ## Emitted when a nap starts or ends.
 signal napping_changed(napping: bool)
 
@@ -28,8 +26,8 @@ const CAMO_TINT: Color = Color(0.55, 0.85, 0.5, 0.75)
 
 ## Consecutive turns spent waiting.
 var still_turns: int = 0
-## XP collected this run (spent on gear from M8).
-var xp: int = 0
+## HP healed per nap turn (furniture can raise it).
+var nap_heal: int = 1
 ## True while napping: turns pass automatically until healed or woken.
 var napping: bool = false
 
@@ -76,9 +74,9 @@ func is_dead() -> bool:
 	return fighter != null and fighter.is_dead()
 
 
+## XP goes into the trip's carried XP (banked when you climb home).
 func gain_xp(amount: int) -> void:
-	xp += amount
-	xp_changed.emit(xp)
+	GameState.add_xp(amount)
 
 
 ## Stop napping (optionally with a message for the log).
@@ -91,13 +89,19 @@ func wake(message: String = "") -> void:
 		world.post_message(message, MessageColours.INFO)
 
 
-## Fresh run: full HP, no XP, awake, not camouflaged.
-func reset_for_new_run() -> void:
+## Take stats from GameState (upgrades + furniture) and the trip's current HP.
+func apply_loadout() -> void:
 	napping = false
 	napping_changed.emit(false)
-	xp = 0
-	xp_changed.emit(0)
-	fighter.reset()
+	dice = GameState.player_dice()
+	ambush_die = dice[0]
+	rerolls_per_round = GameState.rerolls_per_round()
+	sight_radius = GameState.sight_radius()
+	turns_to_camouflage = GameState.turns_to_camouflage()
+	nap_heal = GameState.nap_heal()
+	fighter.max_hp = GameState.max_hp()
+	fighter.hp = clampi(GameState.trip_hp, 1, fighter.max_hp)
+	fighter.hp_changed.emit(fighter.hp, fighter.max_hp)
 
 
 ## True once the sloth has been still long enough to blend in.

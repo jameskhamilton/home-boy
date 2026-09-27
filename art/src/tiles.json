@@ -69,6 +69,56 @@
     "wwwkwwwwwwwkwwww",
     "wwwkwwwwwwwkwwww"
    ]
+  },
+  {
+   "name": "ladder_up",
+   "atlas": [
+    2,
+    0
+   ],
+   "rows": [
+    "yyyyyyyyyyyyyyyy",
+    "ffflmfffffflmfff",
+    "ffflmcccccclmfff",
+    "ffflmmmmmmmlmfff",
+    "ffflmfffffflmfff",
+    "ffflmfffffflmfff",
+    "ffflmcccccclmfff",
+    "ffflmmmmmmmlmfff",
+    "ffflmfffffflmfff",
+    "ffflmfffffflmfff",
+    "ffflmcccccclmfff",
+    "ffflmmmmmmmlmfff",
+    "ffflmfffffflmfff",
+    "ffflmfffffflmfff",
+    "ffflmcccccclmfff",
+    "ffflmmmmmmmlmfff"
+   ]
+  },
+  {
+   "name": "stairs_down",
+   "atlas": [
+    3,
+    0
+   ],
+   "rows": [
+    "kkkkkkkkkkkkkkkk",
+    "tttttttttttttttt",
+    "WWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWW",
+    "kkWWWWWWWWWWWWWW",
+    "kkwwwwwwwwwwwwww",
+    "kkwwwwwwwwwwwwww",
+    "kkkkWWWWWWWWWWWW",
+    "kkkkWWWWWWWWWWWW",
+    "kkkkWWWWWWWWWWWW",
+    "kkkkkkWWWWWWWWWW",
+    "kkkkkkwwwwwwwwww",
+    "kkkkkkwwwwwwwwww",
+    "kkkkkkkkWWWWWWWW",
+    "kkkkkkkkWWWWWWWW",
+    "kkkkkkkkWWWWWWWW"
+   ]
   }
  ]
 }
