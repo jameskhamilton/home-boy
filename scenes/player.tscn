@@ -10,3 +10,6 @@ script = ExtResource("1_3vyb7")
 texture = ExtResource("2_actors")
 centered = false
 hframes = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=740399842]
+position = Vector2(8, 8)
