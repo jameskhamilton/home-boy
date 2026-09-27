@@ -4,13 +4,13 @@ Godot **4.7.2** (standard, GDScript) · Compatibility renderer · 2D turn-based 
 Player character: a sloth.
 
 ## Current milestone
-**4. Procedural dungeon** — next
+**Design session** (goal, progression, hook) → then **5. Field of view**
 
 ## Milestones
 - [x] 1. Setup: project, Git, pixel-art settings, docs, sprites imported
 - [x] 2. The @ moves: sloth on a grid, one tile per key press
 - [x] 3. A map: hand-made floors and walls; walls block movement
-- [ ] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
+- [x] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
 - [ ] 5. Field of view: shadowcasting, visible + explored tiles
 - [ ] 6. Enemies and turns: turn manager, chase AI, blocking
 - [ ] 7. Combat: HP, attack/defence, death, message log, HP bar

@@ -2,6 +2,12 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
+## 2026-09-27 — M4: procedural dungeon
+- Done: seeded DungeonGenerator (zones → rooms → nearest-first corridors + loops), CorridorRouter that avoids parallel corridors, DungeonConfig .tres for tuning, seed HUD label, R = new floor. Play-tested OK.
+- Decided (James): 80×48 floors with 11–20 rooms; no clustering; no side-by-side corridors.
+- Learned: iterate on feel with play-tests; verified with 200-seed checks (connectivity, stripes, ~45 ms/floor).
+- Next: design session (goal of a run, levelling, hook), then M5 field of view.
+
 ## 2026-09-27 — M3: a map
 - Done: MapData grid (source of truth), hand-made 60x36 test floor, TileSet from tiles.png, GameMap draws via TileMapLayer, walls block movement, camera follows the sloth within map limits. Play-tested OK.
 - Decided (James): scrolling floors bigger than the screen; Claude commits per milestone, James pushes.

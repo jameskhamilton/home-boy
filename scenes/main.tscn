@@ -3,10 +3,23 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://dw0efha26nlul" path="res://scenes/game_map.tscn" id="2_map"]
 [ext_resource type="PackedScene" uid="uid://cupdyd2fp12n7" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="Resource" path="res://data/dungeon/default_dungeon.tres" id="4_cfg"]
 
 [node name="Main" type="Node2D" unique_id=1433055254]
 script = ExtResource("1_main")
+dungeon_config = ExtResource("4_cfg")
 
 [node name="GameMap" parent="." instance=ExtResource("2_map")]
 
 [node name="Player" parent="." unique_id=1378968751 instance=ExtResource("3_player")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="SeedLabel" type="Label" parent="HUD"]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 160.0
+offset_bottom = 14.0
+modulate = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 8
+text = "Seed"

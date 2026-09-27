@@ -9,6 +9,8 @@ var width: int
 var height: int
 ## Where the player starts on this floor (in tiles).
 var player_start: Vector2i = Vector2i.ZERO
+## Rooms on this floor (empty for hand-made maps). Used later for spawning.
+var rooms: Array[Rect2i] = []
 
 var _tiles: PackedByteArray
 
