@@ -4,10 +4,10 @@ Godot **4.7.2** (standard, GDScript) · Compatibility renderer · 2D turn-based 
 Player character: a sloth.
 
 ## Current milestone
-**1. Setup** — in progress
+**2. The @ moves** — in progress
 
 ## Milestones
-- [ ] 1. Setup: project, Git, pixel-art settings, docs, sprites imported
+- [x] 1. Setup: project, Git, pixel-art settings, docs, sprites imported
 - [ ] 2. The @ moves: sloth on a grid, one tile per key press
 - [ ] 3. A map: hand-made floors and walls; walls block movement
 - [ ] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
