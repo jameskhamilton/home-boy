@@ -1,0 +1,57 @@
+{
+ "tile": 24,
+ "palette": {
+  ".": null,
+  "k": "#1b1420",
+  "d": "#3b2a22",
+  "m": "#6b4e36",
+  "l": "#9c7a54",
+  "c": "#d9c49c",
+  "f": "#2e2a3a",
+  "F": "#3d3850",
+  "w": "#5a5468",
+  "W": "#7e7892",
+  "g": "#3e7a3a",
+  "G": "#7fb24a",
+  "r": "#b13e53",
+  "y": "#e8b04a",
+  "b": "#3b5dc9",
+  "t": "#f4efe2"
+ },
+ "note": "UI pieces. box_frame is a 9-slice with 8px margins.",
+ "sprites": [
+  {
+   "name": "box_frame",
+   "atlas": [
+    0,
+    0
+   ],
+   "rows": [
+    "..kkkkkkkkkkkkkkkkkkkk..",
+    ".kWWWWWWWWWWWWWWWWWWWWk.",
+    "kWwwwwwwwwwwwwwwwwwwwwWk",
+    "kWwkkkkkkkkkkkkkkkkkkwWk",
+    "kWwkyFFFFFFFFFFFFFFykwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkFFFFFFFFFFFFFFFFkwWk",
+    "kWwkyFFFFFFFFFFFFFFykwWk",
+    "kWwkkkkkkkkkkkkkkkkkkwWk",
+    "kWwwwwwwwwwwwwwwwwwwwwWk",
+    ".kWWWWWWWWWWWWWWWWWWWWk.",
+    "..kkkkkkkkkkkkkkkkkkkk.."
+   ]
+  }
+ ]
+}

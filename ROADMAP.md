@@ -26,7 +26,7 @@ Player character: a sloth.
 - [x] 4. Procedural dungeon: rooms and corridors (random rooms, then BSP)
 - [x] 5. Field of view: shadowcasting, visible + explored tiles
 - [x] 6. Enemies and turns: turn manager, chase AI, blocking, stillness camouflage (hook)
-- [x] 7. Combat: HP, attack/defence, death, message log, HP bar, XP, rest/nap
+- [x] 7. Combat: dice combat box (claw/shell/leaf vs bite), reroll, HP, death, message log, XP from leaves, nap
 - [ ] 8. Items and gear: end-of-floor gear choice from XP, pick up/drop, inventory UI
 - [ ] 9. Down and back: stairs, the fetch item, the return trip, difficulty scaling
 - [ ] 10. Save and load

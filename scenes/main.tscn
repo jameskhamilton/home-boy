@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="9_hud"]
 [ext_resource type="Resource" path="res://data/monsters/pale_snake.tres" id="10_pale"]
 [ext_resource type="Resource" path="res://data/monsters/banded_snake.tres" id="11_banded"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_box.tscn" id="12_box"]
+[ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="13_combat"]
 
 [node name="Main" type="Node2D" unique_id=1433055254]
 script = ExtResource("1_main")
@@ -109,3 +111,8 @@ vertical_alignment = 1
 
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("7_turns")
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource("13_combat")
+
+[node name="CombatBox" parent="." instance=ExtResource("12_box")]

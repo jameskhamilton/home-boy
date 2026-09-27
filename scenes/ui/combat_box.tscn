@@ -1,0 +1,198 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/combat_box.gd" id="1_box"]
+[ext_resource type="Texture2D" path="res://art/ui.png" id="2_ui"]
+
+[node name="CombatBox" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_box")
+
+[node name="Dim" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.105882, 0.0784314, 0.12549, 0.65)
+
+[node name="Frame" type="NinePatchRect" parent="."]
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 420.0
+offset_bottom = 230.0
+texture = ExtResource("2_ui")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Title" type="Label" parent="Frame"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 350.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.909804, 0.690196, 0.290196, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPortrait" type="TextureRect" parent="Frame"]
+offset_left = 51.0
+offset_top = 24.0
+offset_right = 99.0
+offset_bottom = 72.0
+expand_mode = 1
+stretch_mode = 0
+
+[node name="EnemyPortrait" type="TextureRect" parent="Frame"]
+offset_left = 261.0
+offset_top = 24.0
+offset_right = 309.0
+offset_bottom = 72.0
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Vs" type="Label" parent="Frame"]
+offset_left = 160.0
+offset_top = 40.0
+offset_right = 200.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.494118, 0.470588, 0.572549, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "VS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerName" type="Label" parent="Frame"]
+offset_left = 20.0
+offset_top = 72.0
+offset_right = 130.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.85098, 0.768627, 0.611765, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Sloth"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyName" type="Label" parent="Frame"]
+offset_left = 230.0
+offset_top = 72.0
+offset_right = 340.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.85098, 0.768627, 0.611765, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerHp" type="ColorRect" parent="Frame"]
+offset_left = 39.0
+offset_top = 86.0
+offset_right = 111.0
+offset_bottom = 91.0
+color = Color(0.105882, 0.0784314, 0.12549, 1)
+
+[node name="Fill" type="ColorRect" parent="Frame/PlayerHp"]
+offset_right = 72.0
+offset_bottom = 5.0
+color = Color(0.498039, 0.698039, 0.290196, 1)
+
+[node name="EnemyHp" type="ColorRect" parent="Frame"]
+offset_left = 249.0
+offset_top = 86.0
+offset_right = 321.0
+offset_bottom = 91.0
+color = Color(0.105882, 0.0784314, 0.12549, 1)
+
+[node name="Fill" type="ColorRect" parent="Frame/EnemyHp"]
+offset_right = 72.0
+offset_bottom = 5.0
+color = Color(0.498039, 0.698039, 0.290196, 1)
+
+[node name="PlayerHpLabel" type="Label" parent="Frame"]
+offset_left = 39.0
+offset_top = 91.0
+offset_right = 111.0
+offset_bottom = 103.0
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyHpLabel" type="Label" parent="Frame"]
+offset_left = 249.0
+offset_top = 91.0
+offset_right = 321.0
+offset_bottom = 103.0
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerDice" type="HBoxContainer" parent="Frame"]
+offset_left = 0.0
+offset_top = 108.0
+offset_right = 150.0
+offset_bottom = 142.0
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="EnemyDice" type="HBoxContainer" parent="Frame"]
+offset_left = 210.0
+offset_top = 108.0
+offset_right = 360.0
+offset_bottom = 142.0
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="FightXp" type="Label" parent="Frame"]
+offset_left = 130.0
+offset_top = 58.0
+offset_right = 230.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.909804, 0.690196, 0.290196, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "XP +0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Result" type="Label" parent="Frame"]
+offset_left = 10.0
+offset_top = 153.0
+offset_right = 350.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(0.85098, 0.768627, 0.611765, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Prompt" type="Label" parent="Frame"]
+offset_left = 10.0
+offset_top = 168.0
+offset_right = 350.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0.494118, 0.470588, 0.572549, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.0784314, 0.12549, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+

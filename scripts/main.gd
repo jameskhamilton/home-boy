@@ -18,6 +18,8 @@ extends Node2D
 @onready var _player: Player = $Player
 @onready var _turns: TurnManager = $TurnManager
 @onready var _hud: Hud = $HUD
+@onready var _combat: CombatManager = $CombatManager
+@onready var _combat_box: CombatBox = $CombatBox
 
 var map: MapData
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -34,6 +36,9 @@ func _ready() -> void:
 	_turns.turn_ended.connect(_on_turn_ended)
 	_turns.message.connect(_hud.add_message)
 	_turns.player_died.connect(_on_player_died)
+	_combat.world = _turns
+	_combat.box = _combat_box
+	_turns.combat = _combat
 	var seed_value: int = fixed_seed if fixed_seed != 0 else randi()
 	new_run(seed_value)
 
@@ -158,6 +163,9 @@ func _refresh_status() -> void:
 func _on_player_died() -> void:
 	_player.modulate = Color(1, 1, 1, 0.35)
 	_hud.show_game_over(true)
+
+
+
 
 
 

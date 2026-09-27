@@ -14,6 +14,13 @@ signal napping_changed(napping: bool)
 ## Waits in a row needed to become camouflaged.
 @export_range(1, 10) var turns_to_camouflage: int = 3
 
+## The dice the sloth rolls in combat. Items can add more later.
+@export var dice: Array[DieDef] = []
+## Extra die added for a fight started from camouflage (an ambush).
+@export var ambush_die: DieDef
+## How many dice the sloth may reroll per combat round (one die, once). XP upgrades later.
+@export_range(0, 5) var rerolls_per_round: int = 1
+
 ## Seconds between turns while napping (so you can watch it happen).
 @export_range(0.02, 1.0) var nap_turn_delay: float = 0.12
 
@@ -41,7 +48,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not napping:
+	if not napping or _is_busy():
 		return
 	_nap_timer -= delta
 	if _nap_timer > 0.0:
@@ -126,7 +133,7 @@ func set_camera_limits(map_size_px: Vector2i) -> void:
 ## A step from input. If a diagonal is blocked, slide along the wall by taking
 ## whichever single direction is open (if exactly one is).
 func _on_step_requested(dir: Vector2i) -> void:
-	if is_dead():
+	if is_dead() or _is_busy():
 		return
 	wake()
 	# Walking into an enemy attacks it.
@@ -139,14 +146,14 @@ func _on_step_requested(dir: Vector2i) -> void:
 
 
 func _on_wait_requested() -> void:
-	if is_dead():
+	if is_dead() or _is_busy():
 		return
 	wake()
 	_submit(WaitAction.new(self))
 
 
 func _on_nap_requested() -> void:
-	if is_dead():
+	if is_dead() or _is_busy():
 		return
 	if napping:
 		wake()
@@ -178,8 +185,14 @@ func _resolve_step(dir: Vector2i) -> Vector2i:
 	return Vector2i.ZERO
 
 
+## True while a turn or fight is being played out (input is ignored).
+func _is_busy() -> bool:
+	return world != null and world.busy
+
+
 func _submit(action: Action) -> void:
 	if world != null:
 		world.play_turn(action)
 	else:
 		action.perform()
+

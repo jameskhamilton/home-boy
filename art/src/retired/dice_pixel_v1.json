@@ -1,0 +1,324 @@
+{
+ "tile": 16,
+ "palette": {
+  ".": null,
+  "k": "#1b1420",
+  "d": "#3b2a22",
+  "m": "#6b4e36",
+  "l": "#9c7a54",
+  "c": "#d9c49c",
+  "f": "#2e2a3a",
+  "F": "#3d3850",
+  "w": "#5a5468",
+  "W": "#7e7892",
+  "g": "#3e7a3a",
+  "G": "#7fb24a",
+  "r": "#b13e53",
+  "y": "#e8b04a",
+  "b": "#3b5dc9",
+  "t": "#f4efe2"
+ },
+ "note": "Combat dice (James: Bold icons, sloth claws, turtle shell, leaf). Row = die skin (0 sloth, 1 snake). Cols: 0 attack, 1 defend, 2 xp, 3 blank, 4-5 tumble.",
+ "sprites": [
+  {
+   "name": "sloth_die_attack",
+   "atlas": [
+    0,
+    0
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kkkkkkkkkkkklk.",
+    ".kkmlmlmlmlmklk.",
+    ".kkmmmmmmmmmklk.",
+    ".kckttkttkttklk.",
+    ".kckttkttkttklk.",
+    ".kccktkcktkcklk.",
+    ".kccktkcktkcklk.",
+    ".kccctkcctkctlk.",
+    ".kcccktccktcklk.",
+    ".kcccckccckcclk.",
+    ".kccccccccccclk.",
+    ".kllllllllllllk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "sloth_die_defend",
+   "atlas": [
+    1,
+    0
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kccccccccccclk.",
+    ".kccckkkkkccclk.",
+    ".kcckGgGgGkcclk.",
+    ".kckGgGGGgGkclk.",
+    ".kkGgGGgGGgGklk.",
+    ".kkgGGgGGgGGklk.",
+    ".kkkkkkkkkkkklk.",
+    ".kkmmmmmmmmmklk.",
+    ".kckkkkkkkkkclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kllllllllllllk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "sloth_die_xp",
+   "atlas": [
+    2,
+    0
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kccccccccccclk.",
+    ".kcccccckkkcclk.",
+    ".kcccckkGGGkclk.",
+    ".kccckGtGGGkclk.",
+    ".kcckGtGGgGkclk.",
+    ".kcckGGGgGkcclk.",
+    ".kckGGgGGkccclk.",
+    ".kckGgGkkcccclk.",
+    ".kckgkkcccccclk.",
+    ".kkcccccccccclk.",
+    ".kccccccccccclk.",
+    ".kllllllllllllk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "sloth_die_blank",
+   "atlas": [
+    3,
+    0
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kccccccccccclk.",
+    ".kllllllllllllk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "sloth_die_tumble_0",
+   "atlas": [
+    4,
+    0
+   ],
+   "rows": [
+    "................",
+    ".......kk.......",
+    "......kllk......",
+    ".....kllllk.....",
+    "....kclllllk....",
+    "...kccclllllk...",
+    "..kccckclklllk..",
+    ".kccccccclllllk.",
+    ".kccccccccllllk.",
+    "..kccckcckcllk..",
+    "...kcccccccck...",
+    "....kcccccck....",
+    ".....kcccck.....",
+    "......kcck......",
+    ".......kk.......",
+    "................"
+   ]
+  },
+  {
+   "name": "sloth_die_tumble_1",
+   "atlas": [
+    5,
+    0
+   ],
+   "rows": [
+    "................",
+    ".......kk.......",
+    "......kcck......",
+    ".....kcccck.....",
+    "....kcckccck....",
+    "...kcccccccck...",
+    "..kccccccccllk..",
+    ".kcckcccccklllk.",
+    ".kccccccclllllk.",
+    "..kccccclllllk..",
+    "...kccckllllk...",
+    "....kclllllk....",
+    ".....kllllk.....",
+    "......kllk......",
+    ".......kk.......",
+    "................"
+   ]
+  },
+  {
+   "name": "snake_die_attack",
+   "atlas": [
+    0,
+    1
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kkkkkkkkkkkkFk.",
+    ".kkrrrrrrrrrkFk.",
+    ".kkttkrrrkttkFk.",
+    ".kkttkwwwkttkFk.",
+    ".kwttkwwwkttwFk.",
+    ".kwtkwwwwwktwFk.",
+    ".kwkwwwwwwwkwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kFFFFFFFFFFFFk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "snake_die_defend",
+   "atlas": [
+    1,
+    1
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kkkkkkkkkkkkFk.",
+    ".kkGtGGGGGGGkFk.",
+    ".kktGGGGGGGGkFk.",
+    ".kkGGGGGGGGGkFk.",
+    ".kkGGGGGGGGGkFk.",
+    ".kwkGGGGGGGkwFk.",
+    ".kwkGGGGGGGkwFk.",
+    ".kwwkGGGGGkwwFk.",
+    ".kwwwkGGGkwwwFk.",
+    ".kwwwwkGkwwwwFk.",
+    ".kwwwwwkwwwwwFk.",
+    ".kFFFFFFFFFFFFk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "snake_die_xp",
+   "atlas": [
+    2,
+    1
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwkkkwwFk.",
+    ".kwwwwkkGGGkwFk.",
+    ".kwwwkGtGGGkwFk.",
+    ".kwwkGtGGgGkwFk.",
+    ".kwwkGGGgGkwwFk.",
+    ".kwkGGgGGkwwwFk.",
+    ".kwkGgGkkwwwwFk.",
+    ".kwkgkkwwwwwwFk.",
+    ".kkwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kFFFFFFFFFFFFk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "snake_die_blank",
+   "atlas": [
+    3,
+    1
+   ],
+   "rows": [
+    "................",
+    "..kkkkkkkkkkkk..",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kwwwwwwwwwwwFk.",
+    ".kFFFFFFFFFFFFk.",
+    "..kkkkkkkkkkkk..",
+    "...kkkkkkkkkk..."
+   ]
+  },
+  {
+   "name": "snake_die_tumble_0",
+   "atlas": [
+    4,
+    1
+   ],
+   "rows": [
+    "................",
+    ".......kk.......",
+    "......kFFk......",
+    ".....kFFFFk.....",
+    "....kwFFFFFk....",
+    "...kwwwFFFFFk...",
+    "..kwwwkwFkFFFk..",
+    ".kwwwwwwwFFFFFk.",
+    ".kwwwwwwwwFFFFk.",
+    "..kwwwkwwkwFFk..",
+    "...kwwwwwwwwk...",
+    "....kwwwwwwk....",
+    ".....kwwwwk.....",
+    "......kwwk......",
+    ".......kk.......",
+    "................"
+   ]
+  },
+  {
+   "name": "snake_die_tumble_1",
+   "atlas": [
+    5,
+    1
+   ],
+   "rows": [
+    "................",
+    ".......kk.......",
+    "......kwwk......",
+    ".....kwwwwk.....",
+    "....kwwkwwwk....",
+    "...kwwwwwwwwk...",
+    "..kwwwwwwwwFFk..",
+    ".kwwkwwwwwkFFFk.",
+    ".kwwwwwwwFFFFFk.",
+    "..kwwwwwFFFFFk..",
+    "...kwwwkFFFFk...",
+    "....kwFFFFFk....",
+    ".....kFFFFk.....",
+    "......kFFk......",
+    ".......kk.......",
+    "................"
+   ]
+  }
+ ]
+}

@@ -2,11 +2,17 @@
 
 Newest first. 3–5 lines per session: done / learned / next.
 
-## 2026-09-27 — M7: combat
+## 2026-09-27 — M7: dice combat (done, tuning to follow)
+- Done: combat "cut scene" box with 2 dice each, King of Tokyo-style rules (claws − defence = damage, leaves = XP, kills give none), one reroll per round, ambush die, caught-napping double bite, fight-XP counter, James's own dice art imported (tools/import_dice.py).
+- Decided (James): dice game over plain stat combat; 3 shell/2 claw/1 leaf sloth die; snakes 4 attack/2 defence; fights to the death.
+- Learned: screenshots via get_viewport().get_texture() let Claude check the UI; never leave a test run open for James.
+- Next: M8 — spend XP on upgrades (rerolls, dice, faces); balance pass later.
+
+## 2026-09-27 — M7: combat (first pass; reopened)
 - Done: Fighter component, dice combat (to-hit + damage range), bump-to-attack, snake bites, death + permadeath (R = new run), nap (N) healing with sleeping double-bite, XP, HUD (HP bar, XP, status, message log, seed), three snake variants.
 - Decided (James): dice rolls; nap to heal; permadeath; all three snake designs mixed at random.
 - Learned: Godot's global `log()` clashes with a method name — renamed to post_message.
-- Next: M8 — spend XP on gear at the end of each floor.
+- Next: James wants combat as a dice mini-game (combat box, 2 animated dice each, 8-bit art) — designing options.
 
 ## 2026-09-27 — M6: enemies, turns, stealth
 - Done: Action pattern + TurnManager, Actor base, A* pathfinding, cave snakes (MonsterDef data), WANDER/HUNT/SEARCH/REST/DORMANT AI, stillness camouflage (Space = wait), state markers, one snake per room. Play-tested OK.

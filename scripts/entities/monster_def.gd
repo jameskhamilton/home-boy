@@ -17,11 +17,6 @@ extends Resource
 @export_range(1, 5) var search_pace: int = 2
 
 @export_group("Combat")
-@export_range(1, 999) var max_hp: int = 6
-## Chance (0-1) that its bite lands.
-@export_range(0.0, 1.0) var accuracy: float = 0.7
-@export_range(0, 99) var damage_min: int = 1
-@export_range(0, 99) var damage_max: int = 3
-@export_range(0, 99) var defence: int = 0
-## XP the sloth gains for defeating it.
-@export_range(0, 999) var xp_value: int = 5
+@export_range(1, 999) var max_hp: int = 2
+## The dice it rolls in combat (usually two). Change these per monster.
+@export var dice: Array[DieDef] = []

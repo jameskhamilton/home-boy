@@ -4,9 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cq8lsna1q5unx" path="res://art/actors.png" id="2_actors"]
 [ext_resource type="Script" path="res://scripts/entities/components/direction_input.gd" id="3_input"]
 [ext_resource type="Script" path="res://scripts/entities/components/fighter.gd" id="4_fighter"]
+[ext_resource type="Resource" path="res://data/dice/sloth_die.tres" id="5_die"]
+[ext_resource type="Script" path="res://scripts/combat/die_def.gd" id="6_diedef"]
 
 [node name="Player" type="Node2D" unique_id=1378968751]
 script = ExtResource("1_3vyb7")
+dice = Array[ExtResource("6_diedef")]([ExtResource("5_die"), ExtResource("5_die")])
+ambush_die = ExtResource("5_die")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1517324242]
 texture = ExtResource("2_actors")
@@ -22,7 +26,4 @@ script = ExtResource("3_input")
 
 [node name="Fighter" type="Node" parent="."]
 script = ExtResource("4_fighter")
-max_hp = 20
-accuracy = 0.8
-damage_min = 2
-damage_max = 4
+max_hp = 10
